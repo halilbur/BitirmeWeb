@@ -1,0 +1,9 @@
+Flask
+gunicorn
+Werkzeug
+torch
+torchvision
+xgboost
+numpy
+Pillow
+scikit-learn
