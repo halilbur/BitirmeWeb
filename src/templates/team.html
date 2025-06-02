@@ -1,0 +1,208 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="text-align: center; margin-bottom: 3rem;">
+    <h1 style="font-size: 3rem; margin-bottom: 1rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+        <i class="fas fa-users"></i> Project Team
+    </h1>
+    <p style="font-size: 1.2rem; color: #666; max-width: 800px; margin: 0 auto;">
+        Meet the team behind ClothMatch - passionate developers and researchers working on AI-powered fashion technology
+    </p>
+</div>
+
+<!-- Project Info Banner -->
+<div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 3rem; border-radius: 20px; margin-bottom: 4rem; text-align: center;">
+    <h2 style="margin-bottom: 1rem; font-size: 2.5rem;">
+        <i class="fas fa-graduation-cap"></i> Graduation Project
+    </h2>
+    <p style="font-size: 1.3rem; opacity: 0.9; margin-bottom: 2rem;">
+        AI-Powered Clothing Similarity Detection System
+    </p>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 2rem;">
+        <div style="background: rgba(255,255,255,0.2); padding: 1.5rem; border-radius: 15px;">
+            <h4 style="margin-bottom: 0.5rem;">Project Duration</h4>
+            <p style="opacity: 0.9;">2024 - 2025</p>
+        </div>
+        <div style="background: rgba(255,255,255,0.2); padding: 1.5rem; border-radius: 15px;">
+            <h4 style="margin-bottom: 0.5rem;">Technology Stack</h4>
+            <p style="opacity: 0.9;">Python, Flask, PyTorch, XGBoost</p>
+        </div>
+        <div style="background: rgba(255,255,255,0.2); padding: 1.5rem; border-radius: 15px;">
+            <h4 style="margin-bottom: 0.5rem;">Models Used</h4>
+            <p style="opacity: 0.9;">ResNet18, Proto Networks, Triplet Loss</p>
+        </div>
+    </div>
+</div>
+
+<!-- Team Members -->
+<div style="margin-bottom: 4rem;">
+    <h2 style="text-align: center; margin-bottom: 3rem; color: #333;">
+        <i class="fas fa-user-friends"></i> Team Members
+    </h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem;">
+        
+        <!-- Team Member 1 - You (halilbur) -->
+        <div style="background: white; padding: 2.5rem; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); text-align: center; position: relative; overflow: hidden;">
+            <div style="position: absolute; top: 0; left: 0; right: 0; height: 5px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+            <div style="width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); margin: 0 auto 2rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem; font-weight: bold;">
+                H
+            </div>
+            <h3 style="margin-bottom: 0.5rem; color: #333;">Halil Burak</h3>
+            <p style="color: #667eea; font-weight: 600; margin-bottom: 1rem;">Project Lead & AI Developer</p>
+            <p style="color: #666; line-height: 1.6; margin-bottom: 2rem;">
+                Lead developer responsible for model architecture design, implementation of ResNet18, Proto Networks, and Triplet Loss systems. Specialized in deep learning and computer vision.
+            </p>
+            <div style="display: flex; justify-content: center; gap: 1rem;">
+                <a href="https://github.com/halilbur" target="_blank" style="color: #333; font-size: 1.5rem; transition: color 0.3s;">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="#" style="color: #0077b5; font-size: 1.5rem; transition: color 0.3s;">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="#" style="color: #1da1f2; font-size: 1.5rem; transition: color 0.3s;">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+            <div style="margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center;">
+                <span style="background: rgba(102, 126, 234, 0.1); color: #667eea; padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem;">PyTorch</span>
+                <span style="background: rgba(102, 126, 234, 0.1); color: #667eea; padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem;">Computer Vision</span>
+                <span style="background: rgba(102, 126, 234, 0.1); color: #667eea; padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem;">Flask</span>
+            </div>
+        </div>
+
+        <!-- Team Member 2 - Add your teammate -->
+        <div style="background: white; padding: 2.5rem; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); text-align: center; position: relative; overflow: hidden;">
+            <div style="position: absolute; top: 0; left: 0; right: 0; height: 5px; background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);"></div>
+            <div style="width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #764ba2 0%, #667eea 100%); margin: 0 auto 2rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem; font-weight: bold;">
+                ?
+            </div>
+            <h3 style="margin-bottom: 0.5rem; color: #333;">Muhammed Acur</h3>
+            <p style="color: #764ba2; font-weight: 600; margin-bottom: 1rem;">Data Scientist & ML Engineer</p>
+            <p style="color: #666; line-height: 1.6; margin-bottom: 2rem;">
+                Responsible for data preprocessing, model training, and performance optimization. Specialized in machine learning and data analysis.
+            </p>
+            <div style="display: flex; justify-content: center; gap: 1rem;">
+                <a href="#" style="color: #333; font-size: 1.5rem; transition: color 0.3s;">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="#" style="color: #0077b5; font-size: 1.5rem; transition: color 0.3s;">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+            </div>
+            <div style="margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center;">
+                <span style="background: rgba(118, 75, 162, 0.1); color: #764ba2; padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem;">XGBoost</span>
+                <span style="background: rgba(118, 75, 162, 0.1); color: #764ba2; padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem;">Data Science</span>
+                <span style="background: rgba(118, 75, 162, 0.1); color: #764ba2; padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem;">Python</span>
+            </div>
+        </div>
+
+        <!-- Team Member 3 - Add another teammate if you have one -->
+        <div style="background: white; padding: 2.5rem; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); text-align: center; position: relative; overflow: hidden;">
+            <div style="position: absolute; top: 0; left: 0; right: 0; height: 5px; background: linear-gradient(135deg, #28a745 0%, #20c997 100%);"></div>
+            <div style="width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #28a745 0%, #20c997 100%); margin: 0 auto 2rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem; font-weight: bold;">
+                ?
+            </div>
+            <h3 style="margin-bottom: 0.5rem; color: #333;">Şahan Aytekin</h3>
+            <p style="color: #28a745; font-weight: 600; margin-bottom: 1rem;">UI/UX Designer & Frontend</p>
+            <p style="color: #666; line-height: 1.6; margin-bottom: 2rem;">
+                Focused on user experience design, frontend development, and creating intuitive interfaces for the clothing similarity platform.
+            </p>
+            <div style="display: flex; justify-content: center; gap: 1rem;">
+                <a href="#" style="color: #333; font-size: 1.5rem; transition: color 0.3s;">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="#" style="color: #0077b5; font-size: 1.5rem; transition: color 0.3s;">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+            </div>
+            <div style="margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center;">
+                <span style="background: rgba(40, 167, 69, 0.1); color: #28a745; padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem;">HTML/CSS</span>
+                <span style="background: rgba(40, 167, 69, 0.1); color: #28a745; padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem;">JavaScript</span>
+                <span style="background: rgba(40, 167, 69, 0.1); color: #28a745; padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem;">UI/UX</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Project Supervisor -->
+<div style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%); padding: 3rem; border-radius: 20px; margin-bottom: 4rem;">
+    <h2 style="text-align: center; margin-bottom: 3rem; color: #333;">
+        <i class="fas fa-chalkboard-teacher"></i> Project Supervisor
+    </h2>
+    <div style="max-width: 600px; margin: 0 auto; background: white; padding: 3rem; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: center;">
+        <div style="width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%); margin: 0 auto 2rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 2.5rem; font-weight: bold;">
+            Dr.
+        </div>
+        <h3 style="margin-bottom: 0.5rem; color: #333;">Dr. Zeki KUS</h3>
+        <p style="color: #ffc107; font-weight: 600; margin-bottom: 1rem;">Project Supervisor</p>
+        <p style="color: #666; line-height: 1.6;">
+            Professor of Computer Science specializing in Machine Learning and Computer Vision. 
+            Provided guidance and expertise throughout the development of this AI-powered clothing similarity system.
+        </p>
+    </div>
+</div>
+
+<!-- Project Timeline -->
+<div style="background: white; padding: 3rem; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1);">
+    <h2 style="text-align: center; margin-bottom: 3rem; color: #333;">
+        <i class="fas fa-timeline"></i> Project Timeline
+    </h2>
+    <div style="position: relative;">
+        <!-- Timeline line -->
+        <div style="position: absolute; left: 50%; transform: translateX(-50%); width: 4px; height: 100%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+        
+        <!-- Timeline items -->
+        <div style="display: flex; flex-direction: column; gap: 3rem;">
+            <div style="display: flex; align-items: center; position: relative;">
+                <div style="flex: 1; text-align: right; padding-right: 2rem;">
+                    <h4 style="color: #667eea; margin-bottom: 0.5rem;">Research & Planning</h4>
+                    <p style="color: #666;">Literature review, dataset collection, and model selection</p>
+                    <span style="color: #999; font-size: 0.9rem;">September 2024</span>
+                </div>
+                <div style="width: 20px; height: 20px; border-radius: 50%; background: #667eea; position: relative; z-index: 2;"></div>
+                <div style="flex: 1; padding-left: 2rem;"></div>
+            </div>
+            
+            <div style="display: flex; align-items: center; position: relative;">
+                <div style="flex: 1; padding-right: 2rem;"></div>
+                <div style="width: 20px; height: 20px; border-radius: 50%; background: #764ba2; position: relative; z-index: 2;"></div>
+                <div style="flex: 1; text-align: left; padding-left: 2rem;">
+                    <h4 style="color: #764ba2; margin-bottom: 0.5rem;">Model Development</h4>
+                    <p style="color: #666;">Implementation of ResNet18, Proto Networks, and Triplet Loss</p>
+                    <span style="color: #999; font-size: 0.9rem;">October - December 2024</span>
+                </div>
+            </div>
+            
+            <div style="display: flex; align-items: center; position: relative;">
+                <div style="flex: 1; text-align: right; padding-right: 2rem;">
+                    <h4 style="color: #28a745; margin-bottom: 0.5rem;">Training & Optimization</h4>
+                    <p style="color: #666;">Model training, hyperparameter tuning, and performance evaluation</p>
+                    <span style="color: #999; font-size: 0.9rem;">January - March 2025</span>
+                </div>
+                <div style="width: 20px; height: 20px; border-radius: 50%; background: #28a745; position: relative; z-index: 2;"></div>
+                <div style="flex: 1; padding-left: 2rem;"></div>
+            </div>
+            
+            <div style="display: flex; align-items: center; position: relative;">
+                <div style="flex: 1; padding-right: 2rem;"></div>
+                <div style="width: 20px; height: 20px; border-radius: 50%; background: #ffc107; position: relative; z-index: 2;"></div>
+                <div style="flex: 1; text-align: left; padding-left: 2rem;">
+                    <h4 style="color: #ffc107; margin-bottom: 0.5rem;">Web Application</h4>
+                    <p style="color: #666;">Flask backend development and frontend interface design</p>
+                    <span style="color: #999; font-size: 0.9rem;">April - May 2025</span>
+                </div>
+            </div>
+            
+            <div style="display: flex; align-items: center; position: relative;">
+                <div style="flex: 1; text-align: right; padding-right: 2rem;">
+                    <h4 style="color: #dc3545; margin-bottom: 0.5rem;">Final Presentation</h4>
+                    <p style="color: #666;">Project documentation, testing, and graduation presentation</p>
+                    <span style="color: #999; font-size: 0.9rem;">June 2025</span>
+                </div>
+                <div style="width: 20px; height: 20px; border-radius: 50%; background: #dc3545; position: relative; z-index: 2;"></div>
+                <div style="flex: 1; padding-left: 2rem;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="text-align: center; margin-bottom: 2rem;">
+    <h1 style="font-size: 2.5rem; margin-bottom: 1rem; color: #333;">
+        <i class="fas fa-check-circle" style="color: #28a745;"></i> Analysis Complete
+    </h1>
+    <p style="font-size: 1.1rem; color: #666;">
+        Found similar items for your {{ predicted_class }} image
+    </p>
+</div>
+
+<div style="display: grid; grid-template-columns: 1fr 2fr; gap: 3rem; margin-bottom: 3rem;">
+    <!-- Uploaded Image Section -->
+    <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
+        <h3 style="margin-bottom: 1rem; text-align: center;">Your Upload</h3>
+        <img src="{{ uploaded_image_url }}" alt="Uploaded clothing" style="width: 100%; border-radius: 10px; margin-bottom: 1rem;">
+        <div style="text-align: center;">
+            <span class="confidence-badge">
+                {{ predicted_class.title() }} - {{ confidence }}% confidence
+            </span>
+        </div>
+    </div>
+    
+    <!-- Model Predictions Section -->
+    <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
+        <h3 style="margin-bottom: 1.5rem;">AI Model Analysis</h3>
+        
+        <div style="margin-bottom: 1.5rem;">
+            <h4 style="color: #667eea; margin-bottom: 0.5rem;">
+                <i class="fas fa-tags"></i> Primary Classification
+            </h4>
+            <div style="background: rgba(102, 126, 234, 0.1); padding: 1rem; border-radius: 8px;">
+                <strong>{{ predicted_class.title() }}</strong> ({{ confidence }}% confidence)
+            </div>
+        </div>
+        
+        <div style="margin-bottom: 1.5rem;">
+            <h4 style="color: #764ba2; margin-bottom: 0.5rem;">
+                <i class="fas fa-list-ol"></i> Top 3 Predictions
+            </h4>
+            {% for prediction in top_predictions %}
+            <div style="display: flex; justify-content: space-between; padding: 0.5rem 1rem; background: rgba(118, 75, 162, 0.05); margin-bottom: 0.5rem; border-radius: 8px;">
+                <span>{{ prediction.class.title() }}</span>
+                <span style="font-weight: bold;">{{ prediction.confidence }}%</span>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div>
+            <h4 style="color: #28a745; margin-bottom: 0.5rem;">
+                <i class="fas fa-search"></i> Similar Items Found
+            </h4>
+            <div style="background: rgba(40, 167, 69, 0.1); padding: 1rem; border-radius: 8px;">
+                <strong>{{ similar_items|length }} similar {{ predicted_class }}s</strong> found in database
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Similar Items Grid -->
+<div style="margin-bottom: 2rem;">
+    <h2 style="text-align: center; margin-bottom: 2rem; color: #333;">
+        <i class="fas fa-images"></i> Similar {{ predicted_class.title() }}s
+    </h2>
+    
+    {% if similar_items %}
+    <div class="results-grid">
+        {% for item in similar_items %}
+        <div class="result-card">
+            <img src="{{ item.image_url }}" alt="Similar {{ predicted_class }}" class="result-image">
+            <div class="result-info">
+                <h4 style="margin-bottom: 0.5rem;">{{ item.name or 'Similar Item' }}</h4>
+                <p style="color: #666; font-size: 0.9rem; margin-bottom: 1rem;">
+                    {{ item.description or 'Similar style and pattern' }}
+                </p>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span class="confidence-badge" style="font-size: 0.8rem;">
+                        {{ item.similarity }}% match
+                    </span>
+                    {% if item.price %}
+                    <span style="font-weight: bold; color: #28a745;">
+                        ${{ item.price }}
+                    </span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div style="text-align: center; padding: 3rem; background: rgba(255, 193, 7, 0.1); border-radius: 15px;">
+        <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: #ffc107; margin-bottom: 1rem;"></i>
+        <h3>No similar items found</h3>
+        <p style="color: #666;">Try uploading a different image or check back later for more items.</p>
+    </div>
+    {% endif %}
+</div>
+
+<!-- Action Buttons -->
+<div style="text-align: center; margin-top: 3rem;">
+    <a href="/" class="btn" style="margin-right: 1rem;">
+        <i class="fas fa-upload"></i> Upload Another Image
+    </a>
+    <button onclick="shareResults()" class="btn" style="background: #28a745;">
+        <i class="fas fa-share-alt"></i> Share Results
+    </button>
+</div>
+
+<script>
+function shareResults() {
+    if (navigator.share) {
+        navigator.share({
+            title: 'ClothMatch - Similar Clothes Found',
+            text: 'Found {{ similar_items|length }} similar {{ predicted_class }}s using AI!',
+            url: window.location.href
+        });
+    } else {
+        // Fallback - copy URL to clipboard
+        navigator.clipboard.writeText(window.location.href).then(function() {
+            alert('Results URL copied to clipboard!');
+        });
+    }
+}
+</script>
+{% endblock %}
