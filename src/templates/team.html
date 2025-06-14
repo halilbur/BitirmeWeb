@@ -16,7 +16,7 @@
         <i class="fas fa-graduation-cap"></i> Graduation Project
     </h2>
     <p style="font-size: 1.3rem; opacity: 0.9; margin-bottom: 2rem;">
-        AI-Powered Clothing Similarity Detection System
+        AI-Powered Clothing Detection System
     </p>
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 2rem;">
         <div style="background: rgba(255,255,255,0.2); padding: 1.5rem; border-radius: 15px;">
@@ -29,7 +29,7 @@
         </div>
         <div style="background: rgba(255,255,255,0.2); padding: 1.5rem; border-radius: 15px;">
             <h4 style="margin-bottom: 0.5rem;">Models Used</h4>
-            <p style="opacity: 0.9;">ResNet18, Proto Networks, Triplet Loss</p>
+            <p style="opacity: 0.9;">ResNet18, Prototype Networks, Triplet Loss</p>
         </div>
     </div>
 </div>
@@ -40,87 +40,64 @@
         <i class="fas fa-user-friends"></i> Team Members
     </h2>
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem;">
-        
-        <!-- Team Member 1 - You (halilbur) -->
+
+        <!-- Team Member 1 -->
         <div style="background: white; padding: 2.5rem; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); text-align: center; position: relative; overflow: hidden;">
             <div style="position: absolute; top: 0; left: 0; right: 0; height: 5px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
-            <div style="width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); margin: 0 auto 2rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem; font-weight: bold;">
-                H
-            </div>
-            <h3 style="margin-bottom: 0.5rem; color: #333;">Halil Burak</h3>
-            <p style="color: #667eea; font-weight: 600; margin-bottom: 1rem;">Project Lead & AI Developer</p>
+            <img src="{{ url_for('static', filename='resimler/sahan.jpg') }} " alt="Şahan Aytekin" style="width: 150px; height: 150px; border-radius: 50%; object-fit: contain; background: #f8f9fa; padding: 5px; border: 3px solid #667eea; margin-bottom: 1rem;">
+            <h3 style="margin-bottom: 0.5rem; color: #333;">Şahan Aytekin</h3>
+            <p style="color: #667eea; font-weight: 600; margin-bottom: 1rem;">2021221033</p>
             <p style="color: #666; line-height: 1.6; margin-bottom: 2rem;">
-                Lead developer responsible for model architecture design, implementation of ResNet18, Proto Networks, and Triplet Loss systems. Specialized in deep learning and computer vision.
+                He is actively developing his skills in artificial intelligence and deep learning. In this project, he contributed to model design, data preprocessing, and AI infrastructure development.
+            </p>
+            <div style="display: flex; justify-content: center; gap: 1rem;">
+                <a href="https://github.com/SaaHaaN" target="_blank" style="color: #333; font-size: 1.5rem; transition: color 0.3s;">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/sahanaytekin/" target="_blank" style="color: #0077b5; font-size: 1.5rem; transition: color 0.3s;">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Team Member 2 -->
+        <div style="background: white; padding: 2.5rem; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); text-align: center; position: relative; overflow: hidden;">
+            <div style="position: absolute; top: 0; left: 0; right: 0; height: 5px; background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);"></div>
+            <img src="{{ url_for('static', filename='resimler/muhammed.jpg') }} " alt="Muhammed Acur" style="width: 150px; height: 150px; border-radius: 50%; object-fit: contain; background: #f8f9fa; padding: 5px; border: 3px solid #764ba2; margin-bottom: 1rem;">
+            <h3 style="margin-bottom: 0.5rem; color: #333;">Muhammed Acur</h3>
+            <p style="color: #764ba2; font-weight: 600; margin-bottom: 1rem;">2021221036</p>
+            <p style="color: #666; line-height: 1.6; margin-bottom: 2rem;">
+                He is conducting studies in the field of cybersecurity. In this project, he contributed to data preprocessing and AI training processes.
+            </p>
+            <div style="display: flex; justify-content: center; gap: 1rem;">
+                <a href="https://github.com/mhmdacr" target="_blank" style="color: #333; font-size: 1.5rem; transition: color 0.3s;">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/muhammed-acur/" target="_blank" style="color: #0077b5; font-size: 1.5rem; transition: color 0.3s;">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Team Member 3 -->
+        <div style="background: white; padding: 2.5rem; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); text-align: center; position: relative; overflow: hidden;">
+            <div style="position: absolute; top: 0; left: 0; right: 0; height: 5px; background: linear-gradient(135deg, #28a745 0%, #20c997 100%);"></div>
+            <img src="{{ url_for('static', filename='resimler/halil.jpg') }} " alt="Halil Burak Öztürk" style="width: 150px; height: 150px; border-radius: 50%; object-fit: contain; background: #f8f9fa; padding: 5px; border: 3px solid #28a745; margin-bottom: 1rem;">
+            <h3 style="margin-bottom: 0.5rem; color: #333;">Halil Burak Öztürk</h3>
+            <p style="color: #28a745; font-weight: 600; margin-bottom: 1rem;">2121221019</p>
+            <p style="color: #666; line-height: 1.6; margin-bottom: 2rem;">
+                He is working in the area of backend development. In this project, he contributed to AI training processes and worked on the user interface and overall system integration.
             </p>
             <div style="display: flex; justify-content: center; gap: 1rem;">
                 <a href="https://github.com/halilbur" target="_blank" style="color: #333; font-size: 1.5rem; transition: color 0.3s;">
                     <i class="fab fa-github"></i>
                 </a>
-                <a href="#" style="color: #0077b5; font-size: 1.5rem; transition: color 0.3s;">
+                <a href="https://www.linkedin.com/in/halilburakozturk/" target="_blank" style="color: #0077b5; font-size: 1.5rem; transition: color 0.3s;">
                     <i class="fab fa-linkedin"></i>
                 </a>
-                <a href="#" style="color: #1da1f2; font-size: 1.5rem; transition: color 0.3s;">
-                    <i class="fab fa-twitter"></i>
-                </a>
-            </div>
-            <div style="margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center;">
-                <span style="background: rgba(102, 126, 234, 0.1); color: #667eea; padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem;">PyTorch</span>
-                <span style="background: rgba(102, 126, 234, 0.1); color: #667eea; padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem;">Computer Vision</span>
-                <span style="background: rgba(102, 126, 234, 0.1); color: #667eea; padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem;">Flask</span>
             </div>
         </div>
 
-        <!-- Team Member 2 - Add your teammate -->
-        <div style="background: white; padding: 2.5rem; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); text-align: center; position: relative; overflow: hidden;">
-            <div style="position: absolute; top: 0; left: 0; right: 0; height: 5px; background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);"></div>
-            <div style="width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #764ba2 0%, #667eea 100%); margin: 0 auto 2rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem; font-weight: bold;">
-                ?
-            </div>
-            <h3 style="margin-bottom: 0.5rem; color: #333;">Muhammed Acur</h3>
-            <p style="color: #764ba2; font-weight: 600; margin-bottom: 1rem;">Data Scientist & ML Engineer</p>
-            <p style="color: #666; line-height: 1.6; margin-bottom: 2rem;">
-                Responsible for data preprocessing, model training, and performance optimization. Specialized in machine learning and data analysis.
-            </p>
-            <div style="display: flex; justify-content: center; gap: 1rem;">
-                <a href="#" style="color: #333; font-size: 1.5rem; transition: color 0.3s;">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a href="#" style="color: #0077b5; font-size: 1.5rem; transition: color 0.3s;">
-                    <i class="fab fa-linkedin"></i>
-                </a>
-            </div>
-            <div style="margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center;">
-                <span style="background: rgba(118, 75, 162, 0.1); color: #764ba2; padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem;">XGBoost</span>
-                <span style="background: rgba(118, 75, 162, 0.1); color: #764ba2; padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem;">Data Science</span>
-                <span style="background: rgba(118, 75, 162, 0.1); color: #764ba2; padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem;">Python</span>
-            </div>
-        </div>
-
-        <!-- Team Member 3 - Add another teammate if you have one -->
-        <div style="background: white; padding: 2.5rem; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); text-align: center; position: relative; overflow: hidden;">
-            <div style="position: absolute; top: 0; left: 0; right: 0; height: 5px; background: linear-gradient(135deg, #28a745 0%, #20c997 100%);"></div>
-            <div style="width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #28a745 0%, #20c997 100%); margin: 0 auto 2rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem; font-weight: bold;">
-                ?
-            </div>
-            <h3 style="margin-bottom: 0.5rem; color: #333;">Şahan Aytekin</h3>
-            <p style="color: #28a745; font-weight: 600; margin-bottom: 1rem;">UI/UX Designer & Frontend</p>
-            <p style="color: #666; line-height: 1.6; margin-bottom: 2rem;">
-                Focused on user experience design, frontend development, and creating intuitive interfaces for the clothing similarity platform.
-            </p>
-            <div style="display: flex; justify-content: center; gap: 1rem;">
-                <a href="#" style="color: #333; font-size: 1.5rem; transition: color 0.3s;">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a href="#" style="color: #0077b5; font-size: 1.5rem; transition: color 0.3s;">
-                    <i class="fab fa-linkedin"></i>
-                </a>
-            </div>
-            <div style="margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center;">
-                <span style="background: rgba(40, 167, 69, 0.1); color: #28a745; padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem;">HTML/CSS</span>
-                <span style="background: rgba(40, 167, 69, 0.1); color: #28a745; padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem;">JavaScript</span>
-                <span style="background: rgba(40, 167, 69, 0.1); color: #28a745; padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem;">UI/UX</span>
-            </div>
-        </div>
     </div>
 </div>
 
@@ -130,17 +107,18 @@
         <i class="fas fa-chalkboard-teacher"></i> Project Supervisor
     </h2>
     <div style="max-width: 600px; margin: 0 auto; background: white; padding: 3rem; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: center;">
-        <div style="width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%); margin: 0 auto 2rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 2.5rem; font-weight: bold;">
-            Dr.
-        </div>
+        <!-- Profile Image -->
+        <img src="{{ url_for('static', filename='resimler/zeki_kus.jpg') }} " alt="Dr. Zeki KUS" style="width: 150px; height: 150px; border-radius: 50%; object-fit: contain; background: #f8f9fa; padding: 5px; border: 3px solid #ffc107; margin-bottom: 1rem;">
+        
         <h3 style="margin-bottom: 0.5rem; color: #333;">Dr. Zeki KUS</h3>
         <p style="color: #ffc107; font-weight: 600; margin-bottom: 1rem;">Project Supervisor</p>
         <p style="color: #666; line-height: 1.6;">
-            Professor of Computer Science specializing in Machine Learning and Computer Vision. 
-            Provided guidance and expertise throughout the development of this AI-powered clothing similarity system.
+            He is a research assistant in the Department of Computer Engineering at Fatih Sultan Mehmet Vakıf University.
+            He conducts research in machine learning and deep learning. He completed both his master’s and Ph.D. degrees at the same university.
         </p>
     </div>
 </div>
+
 
 <!-- Project Timeline -->
 <div style="background: white; padding: 3rem; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1);">
@@ -148,59 +126,73 @@
         <i class="fas fa-timeline"></i> Project Timeline
     </h2>
     <div style="position: relative;">
-        <!-- Timeline line -->
         <div style="position: absolute; left: 50%; transform: translateX(-50%); width: 4px; height: 100%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
-        
-        <!-- Timeline items -->
+
         <div style="display: flex; flex-direction: column; gap: 3rem;">
+            <!-- Research & Planning -->
             <div style="display: flex; align-items: center; position: relative;">
                 <div style="flex: 1; text-align: right; padding-right: 2rem;">
                     <h4 style="color: #667eea; margin-bottom: 0.5rem;">Research & Planning</h4>
-                    <p style="color: #666;">Literature review, dataset collection, and model selection</p>
-                    <span style="color: #999; font-size: 0.9rem;">September 2024</span>
+                    <p style="color: #666;">Literature review, dataset collection, and model selection. We collected the dataset ourselves since no suitable public data existed.</p>
+                    <span style="color: #999; font-size: 0.9rem;">September - November 2024</span>
                 </div>
                 <div style="width: 20px; height: 20px; border-radius: 50%; background: #667eea; position: relative; z-index: 2;"></div>
                 <div style="flex: 1; padding-left: 2rem;"></div>
             </div>
-            
+
+            <!-- ResNet18 Development -->
             <div style="display: flex; align-items: center; position: relative;">
                 <div style="flex: 1; padding-right: 2rem;"></div>
                 <div style="width: 20px; height: 20px; border-radius: 50%; background: #764ba2; position: relative; z-index: 2;"></div>
                 <div style="flex: 1; text-align: left; padding-left: 2rem;">
-                    <h4 style="color: #764ba2; margin-bottom: 0.5rem;">Model Development</h4>
-                    <p style="color: #666;">Implementation of ResNet18, Proto Networks, and Triplet Loss</p>
-                    <span style="color: #999; font-size: 0.9rem;">October - December 2024</span>
+                    <h4 style="color: #764ba2; margin-bottom: 0.5rem;">ResNet18 Model Development</h4>
+                    <p style="color: #666;">Initial implementation and training of ResNet18-based model for clothing classification.</p>
+                    <span style="color: #999; font-size: 0.9rem;">November 2024 - January 2025</span>
                 </div>
             </div>
-            
+
+            <!-- Prototype Network -->
             <div style="display: flex; align-items: center; position: relative;">
                 <div style="flex: 1; text-align: right; padding-right: 2rem;">
-                    <h4 style="color: #28a745; margin-bottom: 0.5rem;">Training & Optimization</h4>
-                    <p style="color: #666;">Model training, hyperparameter tuning, and performance evaluation</p>
-                    <span style="color: #999; font-size: 0.9rem;">January - March 2025</span>
+                    <h4 style="color: #28a745; margin-bottom: 0.5rem;">Prototype Network Model Development</h4>
+                    <p style="color: #666;">Development and training of prototype-based few-shot learning model.</p>
+                    <span style="color: #999; font-size: 0.9rem;">January - February 2025</span>
                 </div>
                 <div style="width: 20px; height: 20px; border-radius: 50%; background: #28a745; position: relative; z-index: 2;"></div>
                 <div style="flex: 1; padding-left: 2rem;"></div>
             </div>
-            
+
+            <!-- Triplet Learning + XGBoost -->
             <div style="display: flex; align-items: center; position: relative;">
                 <div style="flex: 1; padding-right: 2rem;"></div>
-                <div style="width: 20px; height: 20px; border-radius: 50%; background: #ffc107; position: relative; z-index: 2;"></div>
+                <div style="width: 20px; height: 20px; border-radius: 50%; background: #20c997; position: relative; z-index: 2;"></div>
                 <div style="flex: 1; text-align: left; padding-left: 2rem;">
-                    <h4 style="color: #ffc107; margin-bottom: 0.5rem;">Web Application</h4>
-                    <p style="color: #666;">Flask backend development and frontend interface design</p>
-                    <span style="color: #999; font-size: 0.9rem;">April - May 2025</span>
+                    <h4 style="color: #20c997; margin-bottom: 0.5rem;">Triplet Learning + XGBoost Hybrid Model</h4>
+                    <p style="color: #666;">Development, training, and testing of the hybrid model integrating Triplet Loss embeddings with XGBoost classification.</p>
+                    <span style="color: #999; font-size: 0.9rem;">March - April 2025</span>
                 </div>
             </div>
-            
+
+            <!-- Web Application -->
             <div style="display: flex; align-items: center; position: relative;">
                 <div style="flex: 1; text-align: right; padding-right: 2rem;">
+                    <h4 style="color: #ffc107; margin-bottom: 0.5rem;">Web Application</h4>
+                    <p style="color: #666;">Flask backend development and user-friendly frontend interface design for demonstration.</p>
+                    <span style="color: #999; font-size: 0.9rem;">May - June 2025</span>
+                </div>
+                <div style="width: 20px; height: 20px; border-radius: 50%; background: #ffc107; position: relative; z-index: 2;"></div>
+                <div style="flex: 1; padding-left: 2rem;"></div>
+            </div>
+
+            <!-- Final Presentation -->
+            <div style="display: flex; align-items: center; position: relative;">
+                <div style="flex: 1; padding-right: 2rem;"></div>
+                <div style="width: 20px; height: 20px; border-radius: 50%; background: #dc3545; position: relative; z-index: 2;"></div>
+                <div style="flex: 1; text-align: left; padding-left: 2rem;">
                     <h4 style="color: #dc3545; margin-bottom: 0.5rem;">Final Presentation</h4>
-                    <p style="color: #666;">Project documentation, testing, and graduation presentation</p>
+                    <p style="color: #666;">Documentation, system testing, and final presentation for graduation.</p>
                     <span style="color: #999; font-size: 0.9rem;">June 2025</span>
                 </div>
-                <div style="width: 20px; height: 20px; border-radius: 50%; background: #dc3545; position: relative; z-index: 2;"></div>
-                <div style="flex: 1; padding-left: 2rem;"></div>
             </div>
         </div>
     </div>

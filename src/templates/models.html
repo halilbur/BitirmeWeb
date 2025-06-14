@@ -5,9 +5,6 @@
     <h1 style="font-size: 3rem; margin-bottom: 1rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
         <i class="fas fa-brain"></i> AI Models
     </h1>
-    <p style="font-size: 1.2rem; color: #666; max-width: 800px; margin: 0 auto;">
-        Three cutting-edge deep learning models working together to deliver accurate clothing similarity
-    </p>
 </div>
 <style>
 @media (max-width: 1100px) {
@@ -32,7 +29,7 @@
                 Residual Neural Network for robust feature extraction and clothing classification
             </p>
             <div style="background: rgba(255,255,255,0.2); padding: 1rem; border-radius: 10px; margin-bottom: 1rem;">
-                <strong>Accuracy: 94.2%</strong>
+                <strong>Accuracy: 91.06%</strong>
             </div>
             <button onclick="showModelDetails('resnet18')" style="background: white; color: #667eea; border: none; padding: 0.8rem 1.5rem; border-radius: 25px; font-weight: bold; cursor: pointer;">
                 View Details
@@ -40,20 +37,19 @@
         </div>
     </div>
 
-    <!-- Proto Network Model -->
+    <!-- Prototype Network Model -->
     <div style="background: linear-gradient(135deg, #764ba2 0%, #667eea 100%); color: white; padding: 2.5rem; border-radius: 20px; box-shadow: 0 15px 35px rgba(118, 75, 162, 0.3); position: relative; overflow: hidden;">
         <div style="position: absolute; top: -50px; right: -50px; font-size: 6rem; opacity: 0.1;">
             <i class="fas fa-project-diagram"></i>
         </div>
-        <div style="position: relative; z-index: 2;">
-            <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">
-                <i class="fas fa-sitemap"></i> Proto Network
+        <div style="position: relative; z-index: 2;">            <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">
+                <i class="fas fa-sitemap"></i> Prototype Network
             </h3>
             <p style="margin-bottom: 1.5rem; opacity: 0.9;">
                 Prototypical Networks for few-shot learning and style similarity detection
             </p>
             <div style="background: rgba(255,255,255,0.2); padding: 1rem; border-radius: 10px; margin-bottom: 1rem;">
-                <strong>Accuracy: 89.7%</strong>
+                <strong>Accuracy: 83.26%</strong>
             </div>
             <button onclick="showModelDetails('protonet')" style="background: white; color: #764ba2; border: none; padding: 0.8rem 1.5rem; border-radius: 25px; font-weight: bold; cursor: pointer;">
                 View Details
@@ -74,7 +70,7 @@
                 Triplet loss learning combined with gradient boosting for enhanced similarity matching
             </p>
             <div style="background: rgba(255,255,255,0.2); padding: 1rem; border-radius: 10px; margin-bottom: 1rem;">
-                <strong>Accuracy: 91.5%</strong>
+                <strong>Accuracy: 84.1%</strong>
             </div>
             <button onclick="showModelDetails('triplet')" style="background: white; color: #28a745; border: none; padding: 0.8rem 1.5rem; border-radius: 25px; font-weight: bold; cursor: pointer;">
                 View Details
@@ -95,10 +91,15 @@
                 <h4 style="color: #333; margin-bottom: 1rem;">Model Specifications</h4>
                 <ul style="color: #666; line-height: 2;">
                     <li><strong>Architecture:</strong> Residual Network with 18 layers</li>
-                    <li><strong>Input Size:</strong> 224x224x3 RGB images</li>
+                    <li><strong>Input Size:</strong> 512x512x3 RGB images</li>
                     <li><strong>Output Classes:</strong> 12 clothing categories</li>
-                    <li><strong>Parameters:</strong> ~11.7M trainable parameters</li>
-                    <li><strong>Training Data:</strong> 50,000+ clothing images</li>
+                    <li><strong>Parameters:</strong> 11,445,324 trainable parameters</li>
+                    <li><strong>Training Data:</strong> 5995 clothing images</li>
+                    <li><strong>Validation Data:</strong> 664 5995 clothing images</li>
+                    <li><strong>Test Data:</strong> 1667 clothing images</li>
+                    <li><strong>Training Epochs:</strong> 200 epochs</li>
+                    <li><strong>Batch Size:</strong> 32 images per batch</li>
+                    <li><strong>Loss Function:</strong> Cross-entropy loss</li>
                     <li><strong>Optimizer:</strong> Adam with learning rate 0.001</li>
                 </ul>
             </div>
@@ -111,22 +112,18 @@
                     </p>
                     <p style="color: #666; margin-bottom: 1rem;">
                         <i class="fas fa-check" style="color: #28a745;"></i> 
-                        <strong>Batch Normalization:</strong> Stabilizes training process
-                    </p>
-                    <p style="color: #666; margin-bottom: 1rem;">
-                        <i class="fas fa-check" style="color: #28a745;"></i> 
                         <strong>Transfer Learning:</strong> Pre-trained on ImageNet
                     </p>
                     <p style="color: #666;">
                         <i class="fas fa-check" style="color: #28a745;"></i> 
-                        <strong>Data Augmentation:</strong> Rotation, flip, color jitter
+                        <strong>Data Augmentation:</strong> Resize, Horizontal Flip, Vertical Flip, Rotation, Color Jitter, Sharpen, ToTensor
                     </p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Proto Network Details -->
+    <!-- Prototype Network Details -->
     <div id="protonet-details" class="model-detail" style="display: none;">
         <h2 style="color: #764ba2; margin-bottom: 2rem;">
             <i class="fas fa-sitemap"></i> Prototypical Networks
@@ -215,7 +212,7 @@
         <i class="fas fa-cogs"></i> Independent Model Pipelines
     </h2>
     <p style="text-align: center; color: #666; margin-bottom: 4rem; font-size: 1.1rem;">
-        Each model processes the uploaded image independently and generates its own similarity results
+        Each model processes the uploaded image independently and provides results based on its unique learning approach.
     </p>
     
     <!-- Input Image Section -->
@@ -266,69 +263,68 @@
         <div style="background: white; padding: 1.5rem; border-radius: 15px; margin-bottom: 1.5rem;">
             <h4 style="color: #333; margin-bottom: 1rem; font-size: 1rem;">
                 <i class="fas fa-cog"></i> Processing Steps
-            </h4>
-            <div style="display: flex; flex-direction: column; gap: 1rem;">
-                <div style="display: flex; align-items: center; gap: 1rem;">
-                    <div style="background: #667eea; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: bold;">1</div>
-                    <span style="color: #666; font-size: 0.9rem;">Image preprocessing (224x224)</span>
+            </h4>            <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                <div style="display: flex; align-items: center; gap: 1.5rem;">
+                    <div style="background: #667eea; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: bold; box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3); flex-shrink: 0;">1</div>
+                    <span style="color: #666; font-size: 1rem; line-height: 1.4;">Image preprocessing (512x512)</span>
                 </div>
-                <div style="display: flex; align-items: center; gap: 1rem;">
-                    <div style="background: #667eea; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: bold;">2</div>
-                    <span style="color: #666; font-size: 0.9rem;">18-layer CNN feature extraction</span>
+                <div style="display: flex; align-items: center; gap: 1.5rem;">
+                    <div style="background: #667eea; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: bold; box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3); flex-shrink: 0;">2</div>
+                    <span style="color: #666; font-size: 1rem; line-height: 1.4;">18-layer CNN feature extraction</span>
                 </div>
-                <div style="display: flex; align-items: center; gap: 1rem;">
-                    <div style="background: #667eea; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: bold;">3</div>
-                    <span style="color: #666; font-size: 0.9rem;">12-class classification</span>
+                <div style="display: flex; align-items: center; gap: 1.5rem;">
+                    <div style="background: #667eea; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: bold; box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3); flex-shrink: 0;">3</div>
+                    <span style="color: #666; font-size: 1rem; line-height: 1.4;">12-class classification</span>
                 </div>
-                <div style="display: flex; align-items: center; gap: 1rem;">
-                    <div style="background: #667eea; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: bold;">4</div>
-                    <span style="color: #666; font-size: 0.9rem;">Similarity search in same class</span>
+                <div style="display: flex; align-items: center; gap: 1.5rem;">
+                    <div style="background: #667eea; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: bold; box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3); flex-shrink: 0;">4</div>
+                    <span style="color: #666; font-size: 1rem; line-height: 1.4;">Output the predicted clothing class</span>
                 </div>
             </div>
         </div>
         <div style="background: rgba(102, 126, 234, 0.2); padding: 1rem; border-radius: 10px; text-align: center;">
             <strong style="color: #667eea;">Output: Category-based Results</strong>
-            <p style="color: #666; font-size: 0.8rem; margin: 0.5rem 0 0 0;">94.2% accuracy</p>
+            <p style="color: #666; font-size: 0.8rem; margin: 0.5rem 0 0 0;">91.06% accuracy</p>
         </div>
     </div>
 
-    <!-- Proto Network Pipeline -->
+    <!-- Prototype Network Pipeline -->
     <div style="background: linear-gradient(135deg, rgba(118, 75, 162, 0.1) 0%, rgba(102, 126, 234, 0.1) 100%); padding: 2.5rem; border-radius: 20px; border: 3px solid #764ba2; min-width: 320px; box-sizing: border-box;">
         <div style="text-align: center; margin-bottom: 2rem;">
             <div style="background: linear-gradient(135deg, #764ba2 0%, #667eea 100%); color: white; width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 2rem;">
                 <i class="fas fa-sitemap"></i>
             </div>
-            <h3 style="color: #764ba2; margin-bottom: 0.5rem;">Proto Network Pipeline</h3>
-            <p style="color: #666; font-size: 0.9rem;">Style & Pattern Analysis</p>
+            <h3 style="color: #764ba2; margin-bottom: 0.5rem;">Prototype Network Pipeline</h3>
+            <p style="color: #666; font-size: 0.9rem;">Embedding & Nearest Prototype Matching</p>
         </div>
         <div style="background: white; padding: 1.5rem; border-radius: 15px; margin-bottom: 1.5rem;">
             <h4 style="color: #333; margin-bottom: 1rem; font-size: 1rem;">
                 <i class="fas fa-cog"></i> Processing Steps
-            </h4>
-            <div style="display: flex; flex-direction: column; gap: 1rem;">
-                <div style="display: flex; align-items: center; gap: 1rem;">
-                    <div style="background: #764ba2; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: bold;">1</div>
-                    <span style="color: #666; font-size: 0.9rem;">Few-shot embedding learning</span>
+            </h4>            <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                <div style="display: flex; align-items: center; gap: 1.5rem;">
+                    <div style="background: #764ba2; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: bold; box-shadow: 0 4px 8px rgba(118, 75, 162, 0.3); flex-shrink: 0;">1</div>
+                    <span style="color: #666; font-size: 1rem; line-height: 1.4;">ResNet18 feature extraction & embedding</span>
                 </div>
-                <div style="display: flex; align-items: center; gap: 1rem;">
-                    <div style="background: #764ba2; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: bold;">2</div>
-                    <span style="color: #666; font-size: 0.9rem;">Prototype center calculation</span>
+                <div style="display: flex; align-items: center; gap: 1.5rem;">
+                    <div style="background: #764ba2; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: bold; box-shadow: 0 4px 8px rgba(118, 75, 162, 0.3); flex-shrink: 0;">2</div>
+                    <span style="color: #666; font-size: 1rem; line-height: 1.4;">Prototype center computation</span>
                 </div>
-                <div style="display: flex; align-items: center; gap: 1rem;">
-                    <div style="background: #764ba2; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: bold;">3</div>
-                    <span style="color: #666; font-size: 0.9rem;">Euclidean distance matching</span>
+                <div style="display: flex; align-items: center; gap: 1.5rem;">
+                    <div style="background: #764ba2; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: bold; box-shadow: 0 4px 8px rgba(118, 75, 162, 0.3); flex-shrink: 0;">3</div>
+                    <span style="color: #666; font-size: 1rem; line-height: 1.4;">Euclidean distance-based matching</span>
                 </div>
-                <div style="display: flex; align-items: center; gap: 1rem;">
-                    <div style="background: #764ba2; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: bold;">4</div>
-                    <span style="color: #666; font-size: 0.9rem;">Style-based similarity ranking</span>
+                <div style="display: flex; align-items: center; gap: 1.5rem;">
+                    <div style="background: #764ba2; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: bold; box-shadow: 0 4px 8px rgba(118, 75, 162, 0.3); flex-shrink: 0;">4</div>
+                    <span style="color: #666; font-size: 1rem; line-height: 1.4;">Nearest prototype classification</span>
                 </div>
             </div>
         </div>
         <div style="background: rgba(118, 75, 162, 0.2); padding: 1rem; border-radius: 10px; text-align: center;">
-            <strong style="color: #764ba2;">Output: Style-based Results</strong>
-            <p style="color: #666; font-size: 0.8rem; margin: 0.5rem 0 0 0;">89.7% accuracy</p>
+            <strong style="color: #764ba2;">Output: Nearest Prototype Class</strong>
+            <p style="color: #666; font-size: 0.8rem; margin: 0.5rem 0 0 0;">83.26% accuracy</p>
         </div>
     </div>
+
 
     <!-- Triplet + XGBoost Pipeline -->
     <div style="background: linear-gradient(135deg, rgba(40, 167, 69, 0.1) 0%, rgba(32, 201, 151, 0.1) 100%); padding: 2.5rem; border-radius: 20px; border: 3px solid #28a745; min-width: 320px; box-sizing: border-box;">
@@ -337,34 +333,33 @@
                 <i class="fas fa-code-branch"></i>
             </div>
             <h3 style="color: #28a745; margin-bottom: 0.5rem;">Triplet + XGBoost Pipeline</h3>
-            <p style="color: #666; font-size: 0.9rem;">Advanced Similarity Learning</p>
+            <p style="color: #666; font-size: 0.9rem;">Embedding Extraction & Classification</p>
         </div>
         <div style="background: white; padding: 1.5rem; border-radius: 15px; margin-bottom: 1.5rem;">
             <h4 style="color: #333; margin-bottom: 1rem; font-size: 1rem;">
                 <i class="fas fa-cog"></i> Processing Steps
-            </h4>
-            <div style="display: flex; flex-direction: column; gap: 1rem;">
-                <div style="display: flex; align-items: center; gap: 1rem;">
-                    <div style="background: #28a745; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: bold;">1</div>
-                    <span style="color: #666; font-size: 0.9rem;">Triplet loss embedding</span>
+            </h4>            <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                <div style="display: flex; align-items: center; gap: 1.5rem;">
+                    <div style="background: #28a745; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: bold; box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3); flex-shrink: 0;">1</div>
+                    <span style="color: #666; font-size: 1rem; line-height: 1.4;">Triplet loss-based embedding extraction</span>
                 </div>
-                <div style="display: flex; align-items: center; gap: 1rem;">
-                    <div style="background: #28a745; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: bold;">2</div>
-                    <span style="color: #666; font-size: 0.9rem;">Feature vector generation</span>
+                <div style="display: flex; align-items: center; gap: 1.5rem;">
+                    <div style="background: #28a745; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: bold; box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3); flex-shrink: 0;">2</div>
+                    <span style="color: #666; font-size: 1rem; line-height: 1.4;">Feature vector generation</span>
                 </div>
-                <div style="display: flex; align-items: center; gap: 1rem;">
-                    <div style="background: #28a745; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: bold;">3</div>
-                    <span style="color: #666; font-size: 0.9rem;">XGBoost similarity ranking</span>
+                <div style="display: flex; align-items: center; gap: 1.5rem;">
+                    <div style="background: #28a745; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: bold; box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3); flex-shrink: 0;">3</div>
+                    <span style="color: #666; font-size: 1rem; line-height: 1.4;">XGBoost classifier for clothing category</span>
                 </div>
-                <div style="display: flex; align-items: center; gap: 1rem;">
-                    <div style="background: #28a745; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: bold;">4</div>
-                    <span style="color: #666; font-size: 0.9rem;">Ensemble-based results</span>
+                <div style="display: flex; align-items: center; gap: 1.5rem;">
+                    <div style="background: #28a745; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: bold; box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3); flex-shrink: 0;">4</div>
+                    <span style="color: #666; font-size: 1rem; line-height: 1.4;">Final classification output</span>
                 </div>
             </div>
         </div>
         <div style="background: rgba(40, 167, 69, 0.2); padding: 1rem; border-radius: 10px; text-align: center;">
-            <strong style="color: #28a745;">Output: ML-enhanced Results</strong>
-            <p style="color: #666; font-size: 0.8rem; margin: 0.5rem 0 0 0;">91.5% accuracy</p>
+            <strong style="color: #28a745;">Output: Predicted Clothing Class</strong>
+            <p style="color: #666; font-size: 0.8rem; margin: 0.5rem 0 0 0;">84.1% accuracy</p>
         </div>
     </div>
 </div>
@@ -389,36 +384,40 @@
         
         <!-- Three Independent Result Sets -->
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
+
+            <!-- ResNet18 Results -->
             <div style="background: rgba(102, 126, 234, 0.1); padding: 2rem; border-radius: 15px; border-left: 5px solid #667eea;">
                 <h4 style="color: #667eea; margin-bottom: 1rem;">
                     <i class="fas fa-images"></i> ResNet18 Results
                 </h4>
-                <p style="color: #666; font-size: 0.9rem;">Category-based similar items</p>
+                <p style="color: #666; font-size: 0.9rem;">Multi-class category prediction</p>
                 <div style="background: white; padding: 1rem; border-radius: 8px; margin-top: 1rem;">
-                    <span style="font-size: 1.5rem; font-weight: bold; color: #667eea;">8-12</span>
-                    <p style="color: #666; font-size: 0.8rem; margin: 0;">similar items</p>
+                    <p style="font-size: 1.5rem; font-weight: bold; color: #667eea; margin: 0;">12</p>
+                    <p style="color: #666; font-size: 0.8rem; margin: 0;">target categories</p>
                 </div>
             </div>
-            
+
+            <!-- Prototype Network Results -->
             <div style="background: rgba(118, 75, 162, 0.1); padding: 2rem; border-radius: 15px; border-left: 5px solid #764ba2;">
                 <h4 style="color: #764ba2; margin-bottom: 1rem;">
-                    <i class="fas fa-palette"></i> Proto Network Results
+                    <i class="fas fa-palette"></i> Prototype Network Results
                 </h4>
-                <p style="color: #666; font-size: 0.9rem;">Style-based similar items</p>
+                <p style="color: #666; font-size: 0.9rem;">Style-based similarity matching</p>
                 <div style="background: white; padding: 1rem; border-radius: 8px; margin-top: 1rem;">
-                    <span style="font-size: 1.5rem; font-weight: bold; color: #764ba2;">6-10</span>
+                    <p style="font-size: 1.5rem; font-weight: bold; color: #764ba2; margin: 0;">6 – 10</p>
                     <p style="color: #666; font-size: 0.8rem; margin: 0;">similar items</p>
                 </div>
             </div>
-            
+
+            <!-- Triplet+XGBoost Results -->
             <div style="background: rgba(40, 167, 69, 0.1); padding: 2rem; border-radius: 15px; border-left: 5px solid #28a745;">
                 <h4 style="color: #28a745; margin-bottom: 1rem;">
                     <i class="fas fa-chart-line"></i> Triplet+XGB Results
                 </h4>
-                <p style="color: #666; font-size: 0.9rem;">ML-enhanced similar items</p>
+                <p style="color: #666; font-size: 0.9rem;">Learned embeddings with ML classification</p>
                 <div style="background: white; padding: 1rem; border-radius: 8px; margin-top: 1rem;">
-                    <span style="font-size: 1.5rem; font-weight: bold; color: #28a745;">5-8</span>
-                    <p style="color: #666; font-size: 0.8rem; margin: 0;">similar items</p>
+                    <p style="font-size: 1.5rem; font-weight: bold; color: #28a745; margin: 0;">12</p>
+                    <p style="color: #666; font-size: 0.8rem; margin: 0;">target categories</p>
                 </div>
             </div>
         </div>
@@ -428,47 +427,73 @@
                 <i class="fas fa-lightbulb"></i> Multiple Perspectives
             </h3>
             <p style="opacity: 0.9; margin-bottom: 1rem;">
-                Each model provides a unique approach to finding similar clothing items
+                Each model provides a unique perspective on analyzing and interpreting clothing images — whether by category, style, or learned similarity.
             </p>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
                 <div style="background: rgba(255,255,255,0.2); padding: 1rem; border-radius: 8px;">
-                    <strong>ResNet18:</strong> Category Focus
+                    <strong>ResNet18:</strong> Category Focus<br>
+                    <span style="font-size: 0.85rem; opacity: 0.9;">Predicts the most likely clothing class</span>
                 </div>
                 <div style="background: rgba(255,255,255,0.2); padding: 1rem; border-radius: 8px;">
-                    <strong>Proto Network:</strong> Style Focus
+                    <strong>Prototype Network:</strong> Style Focus<br>
+                    <span style="font-size: 0.85rem; opacity: 0.9;">Matches based on learned visual style patterns</span>
                 </div>
                 <div style="background: rgba(255,255,255,0.2); padding: 1rem; border-radius: 8px;">
-                    <strong>Triplet+XGB:</strong> ML Focus
+                    <strong>Triplet+XGB:</strong> ML Focus<br>
+                    <span style="font-size: 0.85rem; opacity: 0.9;">Learns embeddings and classifies using a machine learning model</span>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Performance Metrics -->
-<div style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%); padding: 3rem; border-radius: 20px;">
-    <h2 style="text-align: center; margin-bottom: 3rem; color: #333;">
+<!-- Performance Metrics Table -->
+<div style="background: white; padding: 3rem; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.05);">
+    <h2 style="text-align: center; color: #333; margin-bottom: 2rem;">
         <i class="fas fa-chart-bar"></i> Performance Metrics
     </h2>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
-        <div style="text-align: center; background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-            <h3 style="color: #667eea; font-size: 2.5rem; margin-bottom: 0.5rem;">94.2%</h3>
-            <p style="color: #666;">Classification Accuracy</p>
-        </div>
-        <div style="text-align: center; background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-            <h3 style="color: #764ba2; font-size: 2.5rem; margin-bottom: 0.5rem;">89.7%</h3>
-            <p style="color: #666;">Style Detection</p>
-        </div>
-        <div style="text-align: center; background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-            <h3 style="color: #28a745; font-size: 2.5rem; margin-bottom: 0.5rem;">91.5%</h3>
-            <p style="color: #666;">Similarity Matching</p>
-        </div>
-        <div style="text-align: center; background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-            <h3 style="color: #ffc107; font-size: 2.5rem; margin-bottom: 0.5rem;">0.8s</h3>
-            <p style="color: #666;">Average Processing Time</p>
-        </div>
+
+    <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 1rem;">
+            <thead>
+                <tr style="background: linear-gradient(90deg, #667eea, #764ba2); color: white;">
+                    <th style="padding: 1rem; text-align: center;">Model</th>
+                    <th style="padding: 1rem; text-align: center;">Accuracy (%)</th>
+                    <th style="padding: 1rem; text-align: center;">Precision (%)</th>
+                    <th style="padding: 1rem; text-align: center;">Recall (%)</th>
+                    <th style="padding: 1rem; text-align: center;">F1-Score (%)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="border-bottom: 1px solid #ddd;">
+                    <td style="padding: 1rem; text-align: center; color: #667eea;">ResNet18</td>
+                    <td style="padding: 1rem; text-align: center; color: #667eea;">91.06</td>
+                    <td style="padding: 1rem; text-align: center; color: #667eea;">91.13</td>
+                    <td style="padding: 1rem; text-align: center; color: #667eea;">91.06</td>
+                    <td style="padding: 1rem; text-align: center; color: #667eea;">91.01</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ddd;">
+                    <td style="padding: 1rem; text-align: center; color: #764ba2;">Prototype Network</td>
+                    <td style="padding: 1rem; text-align: center; color: #764ba2;">83.26</td>
+                    <td style="padding: 1rem; text-align: center; color: #764ba2;">86.79</td>
+                    <td style="padding: 1rem; text-align: center; color: #764ba2;">83.26</td>
+                    <td style="padding: 1rem; text-align: center; color: #764ba2;">84.20</td>
+                </tr>
+                <tr>
+                    <td style="padding: 1rem; text-align: center; color: #28a745;">Triplet + XGBoost</td>
+                    <td style="padding: 1rem; text-align: center; color: #28a745;">84.10</td>
+                    <td style="padding: 1rem; text-align: center; color: #28a745;">84.49</td>
+                    <td style="padding: 1rem; text-align: center; color: #28a745;">84.28</td>
+                    <td style="padding: 1rem; text-align: center; color: #28a745;">84.21</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
+
+
+
+
 
 <script>
 function showModelDetails(modelType) {

@@ -28,9 +28,8 @@
             top: 0;
             z-index: 100;
         }
-        
-        .nav-container {
-            max-width: 1200px;
+          .nav-container {
+            max-width: 1500px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
@@ -64,11 +63,10 @@
             color: #667eea;
             background: rgba(102, 126, 234, 0.1);
         }
-        
-        .container {
-            max-width: 1400px;
+          .container {
+            max-width: 1600px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 1.5rem;
         }
         
         .main-content {
@@ -78,7 +76,7 @@
             padding: 3rem;
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             margin-top: 2rem;
-            max-width: 1300px;   /* Increased from e.g. 800-1000-1200 */
+            max-width: 1500px;   /* Increased from 1300px to 1500px */
             margin-left: auto;
             margin-right: auto;            
         }
@@ -145,11 +143,13 @@
         .result-card:hover {
             transform: translateY(-5px);
         }
-        
-        .result-image {
+          .result-image {
             width: 100%;
             height: 200px;
-            object-fit: cover;
+            object-fit: contain;
+            background: #f8f9fa;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
         }
         
         .result-info {

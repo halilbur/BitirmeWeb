@@ -5,11 +5,11 @@ import os
 import uuid
 
 # Create Flask application instance
-app = Flask(__name__)
+app = Flask(__name__, static_folder='../static')
 app.secret_key = 'your-secret-key-here'  # Change this to a secure secret key
 
 # Configuration
-UPLOAD_FOLDER = 'static/uploads'
+UPLOAD_FOLDER = '../static/uploads'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
