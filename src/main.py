@@ -3,6 +3,10 @@ from werkzeug.utils import secure_filename
 from datetime import datetime
 import os
 import uuid
+import random  # random modülü eklendi
+from models.resnet18.predict import predict_image
+from models.tripleNetAndXgboost.predict import predict_with_triplenet_xgboost # Added import
+
 
 # Create Flask application instance
 app = Flask(__name__, static_folder='../static')
@@ -13,13 +17,20 @@ UPLOAD_FOLDER = '../static/uploads'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+# Define model paths
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+RESNET_MODEL_PATH = os.path.join(BASE_DIR, 'models/resnet18/BestModel_withLoss.pth')
+TRIPLET_MODEL_PATH = os.path.join(BASE_DIR, 'models/tripleNetAndXgboost/Triplet50.pth') # Added path
+XGB_MODEL_PATH = os.path.join(BASE_DIR, 'models/tripleNetAndXgboost/xgb_model.json') # Added path
+
+
 # Create upload directory if it doesn't exist
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 # 12 Clothing classes - update these to match your model's classes
 CLOTHING_CLASSES = [
-    'dress', 'pants', 'tshirt', 'shirt', 'shorts', 'jeans', 
-    'skirt', 'jacket', 'sweater', 'hoodie', 'blouse', 'coat'
+    'Ceket', 'Elbise', 'Etek', 'Gömlek', 'Hırka', 'Kazak', 
+    'Mont', 'Pantalon', 'Sweatshirt', 'Tshirt', 'Yelek', 'Şort'
 ]
 
 def allowed_file(filename):
@@ -27,52 +38,67 @@ def allowed_file(filename):
 
 def predict_clothing_class(image_path):
     """
-    Placeholder for your actual model prediction
-    Replace this with your actual deep learning model inference
+    ResNet18 modelini ve .pth dosyasını kullanarak gerçek tahmin yapar
     """
-    import random
-    
-    # Simulate model prediction - replace with your actual model
-    predicted_class = random.choice(CLOTHING_CLASSES)
-    confidence = random.randint(75, 98)
-    
-    # Simulate top 3 predictions
+    # Model ağırlık dosyasının yolu
+    weights_path = RESNET_MODEL_PATH # Use defined path
+    device = 'cpu'  # Sunucuda GPU varsa 'cuda' olarak değiştirilebilir
+    predicted_class, confidence, probs = predict_image(image_path, weights_path, device=device)
+    # En yüksek 3 tahmini bul
+    import numpy as np
+    top_indices = np.argsort(probs)[::-1][:3]
     top_predictions = []
-    remaining_classes = [c for c in CLOTHING_CLASSES if c != predicted_class]
-    for i in range(2):
-        class_name = random.choice(remaining_classes)
-        remaining_classes.remove(class_name)
+    for idx in top_indices:
         top_predictions.append({
-            'class': class_name,
-            'confidence': random.randint(40, confidence-10)
+            'class': CLOTHING_CLASSES[idx],
+            'confidence': round(probs[idx]*100, 2)
         })
-    
-    # Add the main prediction at the top
-    top_predictions.insert(0, {
-        'class': predicted_class,
-        'confidence': confidence
-    })
-    
-    return predicted_class, confidence, top_predictions
+    return predicted_class, round(confidence*100, 2), top_predictions
 
 def get_similar_items(clothing_class, num_items=8):
     """
-    Placeholder for getting similar items from your database
-    Replace this with your actual similarity search
+    Belirtilen giysi sınıfı için benzer ürünleri bulur.
+    Fotoğrafları src/static/similar_items/{clothing_class}/ klasöründen alır.
     """
-    # Mock similar items - replace with your actual database query
+    similar_items_dir = os.path.join(app.static_folder, 'similar_items', clothing_class)
     similar_items = []
     
-    for i in range(num_items):
-        similar_items.append({
-            'id': i + 1,
-            'name': f'Similar {clothing_class.title()} #{i+1}',
-            'description': f'Stylish {clothing_class} with similar design and pattern',
-            'image_url': f'/static/placeholder-{clothing_class}.jpg',  # Replace with actual images
-            'similarity': random.randint(80, 95),
-            'price': random.randint(20, 200) if random.choice([True, False]) else None
-        })
-    
+    if os.path.exists(similar_items_dir):
+        try:
+            available_images = [f for f in os.listdir(similar_items_dir) 
+                                if os.path.isfile(os.path.join(similar_items_dir, f)) 
+                                and f.lower().endswith(('.png', '.jpg', '.jpeg', '.gif'))]
+            
+            selected_images = random.sample(available_images, min(len(available_images), num_items))
+            
+            for i, img_name in enumerate(selected_images):
+                similar_items.append({
+                    'id': i + 1,
+                    'name': f'{clothing_class} - {i+1}', # Daha iyi bir isimleme düşünülebilir
+                    #'description': f'Benzer {clothing_class} modeli.',
+                    'image_url': url_for('static', filename=f'similar_items/{clothing_class}/{img_name}'),
+                    #'similarity': random.randint(80, 95), # Bu da rastgele
+                    #'price': random.randint(20, 200) if random.choice([True, False]) else None # Bu da rastgele
+                })
+        except Exception as e:
+            print(f"Error reading similar items for {clothing_class}: {e}")
+            # Hata durumunda boş liste veya varsayılan birkaç öğe döndürülebilir
+            pass # Şimdilik hata olursa boş liste dönecek
+
+    # Eğer hiç benzer ürün bulunamazsa veya klasör yoksa, placeholder birkaç öğe eklenebilir
+    if not similar_items:
+        for i in range(num_items): # Varsayılan olarak 4 placeholder gösterelim
+            similar_items.append({
+                'id': -(i + 1), # Placeholder olduğunu belirtmek için negatif id
+                'name': f'Placeholder {clothing_class} #{i+1}',
+                'description': 'Bu kategori için benzer ürünler yakında eklenecektir.',
+                'image_url': url_for('static', filename='resimler/zeki_kus.jpg'), # Genel bir placeholder resmi
+                'similarity': 0,
+                'price': None
+            })
+            if len(similar_items) >= 4: # En fazla 4 placeholder
+                break
+                
     return similar_items
 
 # Routes
@@ -99,22 +125,37 @@ def predict():
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(filepath)
             
-            # Get predictions from your models
-            predicted_class, confidence, top_predictions = predict_clothing_class(filepath)
+            # Get predictions from ResNet18 model
+            resnet_predicted_class, resnet_confidence, resnet_top_predictions = predict_clothing_class(filepath)
+            resnet_similar_items = get_similar_items(resnet_predicted_class)
             
-            # Get similar items
-            similar_items = get_similar_items(predicted_class)
+            # Get predictions from TripletNet+XGBoost model
+            device = 'cpu' # or 'cuda' if available
+            triplet_predicted_class, triplet_confidence, triplet_top_predictions = predict_with_triplenet_xgboost(
+                filepath,
+                TRIPLET_MODEL_PATH,
+                XGB_MODEL_PATH,
+                device=device
+            )
+            triplet_similar_items = get_similar_items(triplet_predicted_class) # Assuming get_similar_items can be reused for now
             
             # Prepare data for template
             uploaded_image_url = f'/static/uploads/{filename}'
             
             return render_template('results.html',
-                                 title=f'Similar {predicted_class.title()}s Found',
-                                 predicted_class=predicted_class,
-                                 confidence=confidence,
-                                 top_predictions=top_predictions,
-                                 similar_items=similar_items,
-                                 uploaded_image_url=uploaded_image_url)
+                                 title='Prediction Results',
+                                 uploaded_image_url=uploaded_image_url,
+                                 # ResNet18 results
+                                 resnet_predicted_class=resnet_predicted_class,
+                                 resnet_confidence=resnet_confidence,
+                                 resnet_top_predictions=resnet_top_predictions,
+                                 resnet_similar_items=resnet_similar_items,
+                                 # TripletNet+XGBoost results
+                                 triplet_predicted_class=triplet_predicted_class,
+                                 triplet_confidence=triplet_confidence,
+                                 triplet_top_predictions=triplet_top_predictions,
+                                 triplet_similar_items=triplet_similar_items
+                                )
         else:
             flash('Invalid file type. Please upload an image.')
             return redirect(url_for('home'))

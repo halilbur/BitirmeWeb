@@ -185,16 +185,56 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-        
-        .preview-container {
+          .preview-container {
             max-width: 300px;
             margin: 1rem auto;
+            position: relative;
         }
         
         .preview-image {
             width: 100%;
+            max-height: 250px;
+            object-fit: contain;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            background: #f8f9fa;
+            padding: 10px;
+        }
+        
+        .upload-section.has-image {
+            border: 2px solid #28a745;
+            background: rgba(40, 167, 69, 0.05);
+            padding: 1.5rem;
+        }
+        
+        .upload-section.has-image .upload-content {
+            display: none;
+        }
+        
+        .upload-section .image-preview-container {
+            display: none;
+        }
+        
+        .upload-section.has-image .image-preview-container {
+            display: block;
+            text-align: center;
+        }
+        
+        .remove-image-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .remove-image-btn:hover {
+            background: #c82333;
+            transform: translateY(-1px);
         }
         
         @media (max-width: 768px) {
@@ -217,6 +257,18 @@
     </style>
 </head>
 <body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="container" style="margin-top: 1rem; margin-bottom: 1rem;">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category if category else 'info' }}" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+    
     <nav class="navbar">
         <div class="nav-container">
             <a href="/" class="logo">
@@ -237,19 +289,45 @@
         </div>
     </div>
     
-    <script>
-        // File upload preview functionality
+    <script>        // File upload preview functionality
         function previewImage(input) {
+            const uploadSection = document.querySelector('.upload-section');
+            const imagePreview = document.getElementById('imagePreview');
+            
             if (input.files && input.files[0]) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    const preview = document.getElementById('imagePreview');
-                    if (preview) {
-                        preview.src = e.target.result;
-                        preview.style.display = 'block';
+                    if (imagePreview && uploadSection) {
+                        imagePreview.src = e.target.result;
+                        uploadSection.classList.add('has-image');
+                        
+                        // Show the image preview container
+                        const previewContainer = uploadSection.querySelector('.image-preview-container');
+                        if (previewContainer) {
+                            previewContainer.style.display = 'block';
+                        }
                     }
                 }
                 reader.readAsDataURL(input.files[0]);
+            }
+        }
+        
+        // Remove image and reset upload section
+        function removeImage() {
+            const uploadSection = document.querySelector('.upload-section');
+            const imagePreview = document.getElementById('imagePreview');
+            const fileInput = document.getElementById('clothImage');
+            
+            if (uploadSection && imagePreview && fileInput) {
+                uploadSection.classList.remove('has-image');
+                imagePreview.src = '';
+                fileInput.value = '';
+                
+                // Hide the image preview container
+                const previewContainer = uploadSection.querySelector('.image-preview-container');
+                if (previewContainer) {
+                    previewContainer.style.display = 'none';
+                }
             }
         }
         
@@ -268,9 +346,11 @@
                     this.style.borderColor = '#667eea';
                     this.style.background = 'rgba(102, 126, 234, 0.05)';
                 });
-                
-                uploadSection.addEventListener('drop', function(e) {
+                  uploadSection.addEventListener('drop', function(e) {
                     e.preventDefault();
+                    this.style.borderColor = '#667eea';
+                    this.style.background = 'rgba(102, 126, 234, 0.05)';
+                    
                     const files = e.dataTransfer.files;
                     if (files.length > 0) {
                         const fileInput = document.getElementById('clothImage');
@@ -278,10 +358,11 @@
                         previewImage(fileInput);
                     }
                 });
-            }
-        }
+            }        }
         
-        document.addEventListener('DOMContentLoaded', setupDragDrop);
+        document.addEventListener('DOMContentLoaded', function() {
+            setupDragDrop();
+        });
     </script>
 </body>
 </html>

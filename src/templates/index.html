@@ -11,25 +11,35 @@
 </div>
 
 <form action="/predict" method="POST" enctype="multipart/form-data" id="uploadForm">
-    <div class="upload-section" onclick="document.getElementById('clothImage').click()">
-        <div class="upload-icon">
-            <i class="fas fa-cloud-upload-alt"></i>
+    <div class="upload-section">
+        <div class="upload-content" onclick="if (!document.querySelector('.upload-section').classList.contains('has-image')) { document.getElementById('clothImage').click(); }">
+            <div class="upload-icon">
+                <i class="fas fa-cloud-upload-alt"></i>
+            </div>
+            <h3 style="margin-bottom: 1rem;">Upload Your Clothing Image</h3>
+            <p style="color: #666; margin-bottom: 1.5rem;">Drag and drop or click to browse</p>            <button type="button" class="btn" onclick="event.stopPropagation(); document.getElementById('clothImage').click();">
+                <i class="fas fa-image"></i> Choose Image
+            </button>
         </div>
-        <h3 style="margin-bottom: 1rem;">Upload Your Clothing Image</h3>
-        <p style="color: #666; margin-bottom: 1.5rem;">Drag and drop or click to browse</p>
-        <label for="clothImage" class="btn">
-            <i class="fas fa-image"></i> Choose Image
-        </label>
+        
+        <div class="image-preview-container">
+            <img id="imagePreview" class="preview-image" alt="Preview">
+            <br>
+            <button type="button" class="remove-image-btn" onclick="removeImage(); event.stopPropagation();">
+                <i class="fas fa-trash"></i> Remove Image
+            </button>
+            <p style="color: #28a745; margin-top: 0.5rem; font-weight: 600;">
+                <i class="fas fa-check-circle"></i> Image uploaded successfully!
+            </p>
+        </div>
+        
         <input type="file" id="clothImage" name="image" accept="image/*" class="file-input" onchange="previewImage(this)" required>
     </div>
     
-    <div class="preview-container" id="previewContainer" style="display: none;">
-        <img id="imagePreview" class="preview-image" style="display: none;">
-        <div style="text-align: center; margin-top: 1rem;">
-            <button type="submit" class="btn">
-                <i class="fas fa-search"></i> Find Similar Clothes
-            </button>
-        </div>
+    <div style="text-align: center; margin-top: 1rem;">
+        <button type="submit" class="btn">
+            <i class="fas fa-search"></i> Find Similar Clothes
+        </button>
     </div>
 </form>
 
@@ -69,19 +79,5 @@ document.getElementById('uploadForm').addEventListener('submit', function(e) {
         document.getElementById('loadingDiv').style.display = 'block';
     }
 });
-
-function previewImage(input) {
-    if (input.files && input.files[0]) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const preview = document.getElementById('imagePreview');
-            const container = document.getElementById('previewContainer');
-            preview.src = e.target.result;
-            preview.style.display = 'block';
-            container.style.display = 'block';
-        }
-        reader.readAsDataURL(input.files[0]);
-    }
-}
 </script>
 {% endblock %}
