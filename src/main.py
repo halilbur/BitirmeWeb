@@ -30,7 +30,7 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 # 12 Clothing classes - update these to match your model's classes
 CLOTHING_CLASSES = [
     'Ceket', 'Elbise', 'Etek', 'Gömlek', 'Hırka', 'Kazak', 
-    'Mont', 'Pantalon', 'Sweatshirt', 'Tshirt', 'Yelek', 'Şort'
+    'Mont', 'Pantolon', 'Sweatshirt', 'Tshirt', 'Yelek', 'Şort'
 ]
 
 def allowed_file(filename):

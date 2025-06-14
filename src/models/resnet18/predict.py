@@ -6,7 +6,7 @@ from .model import get_resnet18_model
 # Flask projesindeki sınıf isimleriyle uyumlu olmalı
 CLOTHING_CLASSES = [
     'Ceket', 'Elbise', 'Etek', 'Gömlek', 'Hırka', 'Kazak', 
-    'Mont', 'Pantalon', 'Sweatshirt', 'Tshirt', 'Yelek', 'Şort'
+    'Mont', 'Pantolon', 'Sweatshirt', 'Tshirt', 'Yelek', 'Şort'
 ]
 
 # Inference için transform
