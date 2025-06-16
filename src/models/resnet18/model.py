@@ -1,10 +1,10 @@
 import torch
 import torch.nn as nn
 from torchvision import models
-from torchvision.models import ResNet18_Weights
 
 def get_resnet18_model(num_classes=12, weights_path=None, device=None):
-    model = models.resnet18(weights=ResNet18_Weights.DEFAULT)
+    # Use weights=None to avoid downloading ImageNet weights since we load our own
+    model = models.resnet18(weights=None)
     num_features = model.fc.in_features
     model.fc = nn.Sequential(
         nn.Linear(num_features, 512),

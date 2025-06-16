@@ -2,6 +2,7 @@ import torch
 from torchvision import transforms
 from PIL import Image
 from .model import get_resnet18_model
+import gc
 
 # Flask projesindeki sınıf isimleriyle uyumlu olmalı
 CLOTHING_CLASSES = [
@@ -16,12 +17,23 @@ inference_transform = transforms.Compose([
 ])
 
 def predict_image(image_path, weights_path, device='cpu'):
-    model = get_resnet18_model(num_classes=len(CLOTHING_CLASSES), weights_path=weights_path, device=device)
-    image = Image.open(image_path).convert('RGB')
-    input_tensor = inference_transform(image).unsqueeze(0).to(device)
-    with torch.no_grad():
-        output = model(input_tensor)
-        probs = torch.softmax(output, dim=1)[0]
-        conf, pred_idx = torch.max(probs, dim=0)
-        predicted_class = CLOTHING_CLASSES[pred_idx.item()]
-    return predicted_class, conf.item(), probs.cpu().numpy()
+    try:
+        model = get_resnet18_model(num_classes=len(CLOTHING_CLASSES), weights_path=weights_path, device=device)
+        image = Image.open(image_path).convert('RGB')
+        input_tensor = inference_transform(image).unsqueeze(0).to(device)
+        
+        with torch.no_grad():
+            output = model(input_tensor)
+            probs = torch.softmax(output, dim=1)[0]
+            conf, pred_idx = torch.max(probs, dim=0)
+            predicted_class = CLOTHING_CLASSES[pred_idx.item()]
+            
+        # Clean up memory
+        del model, input_tensor, output
+        gc.collect()
+        
+        return predicted_class, conf.item(), probs.cpu().numpy()
+    except Exception as e:
+        print(f"Error in predict_image: {e}")
+        # Return fallback values
+        return "Error", 0.0, [0.0] * len(CLOTHING_CLASSES)

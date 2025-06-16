@@ -5,7 +5,8 @@ import torchvision.models as models
 class TripletNet(nn.Module):
     def __init__(self, embedding_dim=128):
         super(TripletNet, self).__init__()
-        resnet = models.resnet18(pretrained=True)
+        # Use pretrained=False to avoid downloading ImageNet weights since we load our own
+        resnet = models.resnet18(pretrained=False)
         # Remove the final classification layer (fc layer)
         modules = list(resnet.children())[:-1]  # up to avgpool
         self.backbone = nn.Sequential(*modules)
