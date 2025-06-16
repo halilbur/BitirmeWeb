@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: flask-ml-app
+    env: python
+    region: frankfurt  # or oregon, singapore, etc.
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn src.main:app
+    autoDeploy: true
