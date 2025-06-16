@@ -6,6 +6,7 @@ import uuid
 import random  # random modülü eklendi
 from models.resnet18.predict import predict_image
 from models.tripleNetAndXgboost.predict import predict_with_triplenet_xgboost # Added import
+from models.protoNet.predict import predict_with_protonet # Added ProtoNet import
 
 
 # Create Flask application instance
@@ -22,6 +23,9 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 RESNET_MODEL_PATH = os.path.join(BASE_DIR, 'models/resnet18/BestModel_withLoss.pth')
 TRIPLET_MODEL_PATH = os.path.join(BASE_DIR, 'models/tripleNetAndXgboost/Triplet50.pth') # Added path
 XGB_MODEL_PATH = os.path.join(BASE_DIR, 'models/tripleNetAndXgboost/xgb_model.json') # Added path
+# ProtoNet model paths
+PROTONET_FEATURE_EXTRACTOR_PATH = os.path.join(BASE_DIR, 'models/protoNet/protonet_feature_extractor.pth')
+PROTONET_CLASSIFIER_DATA_PATH = os.path.join(BASE_DIR, 'models/protoNet/protonet_classifier_data.pth')
 
 
 # Create upload directory if it doesn't exist
@@ -138,6 +142,26 @@ def predict():
                 device=device
             )
             triplet_similar_items = get_similar_items(triplet_predicted_class) # Assuming get_similar_items can be reused for now
+              # Get predictions from ProtoNet model
+            try:
+                proto_predicted_class, proto_confidence, proto_top_predictions = predict_with_protonet(
+                    filepath,
+                    PROTONET_FEATURE_EXTRACTOR_PATH,
+                    PROTONET_CLASSIFIER_DATA_PATH,
+                    device=device
+                )
+                proto_similar_items = get_similar_items(proto_predicted_class)
+            except Exception as e:
+                print(f"ProtoNet prediction error: {e}")
+                # Fallback values if ProtoNet fails
+                proto_predicted_class = "Error"
+                proto_confidence = 0.0
+                proto_top_predictions = [
+                    {'class': 'Error', 'confidence': 0.0},
+                    {'class': 'Error', 'confidence': 0.0},
+                    {'class': 'Error', 'confidence': 0.0}
+                ]
+                proto_similar_items = []
             
             # Prepare data for template
             uploaded_image_url = f'/static/uploads/{filename}'
@@ -154,7 +178,12 @@ def predict():
                                  triplet_predicted_class=triplet_predicted_class,
                                  triplet_confidence=triplet_confidence,
                                  triplet_top_predictions=triplet_top_predictions,
-                                 triplet_similar_items=triplet_similar_items
+                                 triplet_similar_items=triplet_similar_items,
+                                 # ProtoNet results
+                                 proto_predicted_class=proto_predicted_class,
+                                 proto_confidence=proto_confidence,
+                                 proto_top_predictions=proto_top_predictions,
+                                 proto_similar_items=proto_similar_items
                                 )
         else:
             flash('Invalid file type. Please upload an image.')
