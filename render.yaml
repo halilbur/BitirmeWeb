@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: bitirmeweb # You can change this to your preferred service name
+    env: python
+    pythonVersion: "3.11" # Matches the Python version from your logs
+    region: frankfurt # Choose a region suitable for you (e.g., frankfurt, ohio)
+    plan: free # Or your desired plan (e.g., starter)
+    
+    buildCommand: "pip install --upgrade pip && pip install -r requirements.txt"
+    startCommand: "gunicorn src.main:app"
+    
+    envVars:
+      - key: PYTHONPATH
+        value: . # Tells Python to look for modules in the repo root
+      - key: WEB_CONCURRENCY # Optional: For Gunicorn, Render might set this automatically
+        value: 4 # Adjust based on your app's needs and plan
+
