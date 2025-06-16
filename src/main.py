@@ -1,22 +1,68 @@
 import sys
 import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
+# Add the current directory (src) to Python path to find models
+current_dir = os.path.dirname(os.path.abspath(__file__))
+if current_dir not in sys.path:
+    sys.path.insert(0, current_dir)
+
+# Also add the parent directory to handle different deployment scenarios
+parent_dir = os.path.dirname(current_dir)
+if parent_dir not in sys.path:
+    sys.path.insert(0, parent_dir)
 
 from flask import Flask, render_template, request, jsonify, redirect, url_for, flash
 from werkzeug.utils import secure_filename
 from datetime import datetime
 import uuid
 import random  # random modülü eklendi
-from models.resnet18.predict import predict_image
-from models.tripleNetAndXgboost.predict import predict_with_triplenet_xgboost # Added import
+
+# Debug info for troubleshooting
+print(f"Main.py Debug - Current dir: {current_dir}")
+print(f"Main.py Debug - Parent dir: {parent_dir}")
+print(f"Main.py Debug - Models dir exists: {os.path.exists(os.path.join(current_dir, 'models'))}")
+
+# Try different import paths for deployment compatibility
+try:
+    # First try: relative import from current directory
+    from models.resnet18.predict import predict_image
+    from models.tripleNetAndXgboost.predict import predict_with_triplenet_xgboost
+    print("Successfully imported models using relative imports")
+except ImportError as e1:
+    print(f"First import attempt failed: {e1}")
+    try:
+        # Second try: with src prefix
+        from src.models.resnet18.predict import predict_image
+        from src.models.tripleNetAndXgboost.predict import predict_with_triplenet_xgboost
+        print("Successfully imported models using src prefix")
+    except ImportError as e2:
+        print(f"Second import attempt failed: {e2}")
+        try:
+            # Third try: add models directory to path and import directly
+            models_path = os.path.join(current_dir, 'models')
+            if models_path not in sys.path:
+                sys.path.insert(0, models_path)
+            from resnet18.predict import predict_image
+            from tripleNetAndXgboost.predict import predict_with_triplenet_xgboost
+            print("Successfully imported models after adding models path")
+        except ImportError as e3:
+            print(f"All import attempts failed: {e1}, {e2}, {e3}")
+            print(f"Current directory: {current_dir}")
+            print(f"Python path: {sys.path}")
+            print(f"Models path exists: {os.path.exists(os.path.join(current_dir, 'models'))}")
+            # Import a dummy function to prevent the app from crashing
+            def predict_image(*args, **kwargs):
+                return "Error", 0.0, []
+            def predict_with_triplenet_xgboost(*args, **kwargs):
+                return "Error", 0.0, []
 
 
 # Create Flask application instance
-app = Flask(__name__, static_folder='../static')
+app = Flask(__name__, static_folder=os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'static'))
 app.secret_key = 'your-secret-key-here'  # Change this to a secure secret key
 
 # Configuration
-UPLOAD_FOLDER = '../static/uploads'
+UPLOAD_FOLDER = os.path.join(app.static_folder, 'uploads')
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -61,7 +107,7 @@ def predict_clothing_class(image_path):
 def get_similar_items(clothing_class, num_items=8):
     """
     Belirtilen giysi sınıfı için benzer ürünleri bulur.
-    Fotoğrafları src/static/similar_items/{clothing_class}/ klasöründen alır.
+    Fotoğrafları static/similar_items/{clothing_class}/ klasöründen alır.
     """
     similar_items_dir = os.path.join(app.static_folder, 'similar_items', clothing_class)
     similar_items = []
@@ -141,9 +187,8 @@ def predict():
                 device=device
             )
             triplet_similar_items = get_similar_items(triplet_predicted_class) # Assuming get_similar_items can be reused for now
-            
-            # Prepare data for template
-            uploaded_image_url = f'/static/uploads/{filename}'
+              # Prepare data for template
+            uploaded_image_url = url_for('static', filename=f'uploads/{filename}')
             
             return render_template('results.html',
                                  title='Prediction Results',

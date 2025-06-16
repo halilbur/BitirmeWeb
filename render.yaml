@@ -5,5 +5,5 @@ services:
     region: frankfurt  # or oregon, singapore, etc.
     plan: free
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn src.main:app
+    startCommand: gunicorn wsgi:app
     autoDeploy: true
