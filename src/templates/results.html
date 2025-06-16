@@ -18,160 +18,201 @@
     </div>
 </div>
 
-<!-- Container for Side-by-Side Model Results -->
-<div style="display: flex; flex-wrap: wrap; gap: 2rem; margin-bottom: 3rem; justify-content: center;">
-
-    <!-- ResNet18 Results Block -->
-    <div style="flex: 1; min-width: 400px; max-width: 600px; background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
-        <h2 style="text-align: center; margin-bottom: 1.5rem; color: #333;">ResNet18 Model</h2>
-        
-        <div style="margin-bottom: 1.5rem;">
-            <h4 style="color: #667eea; margin-bottom: 0.5rem;"><i class="fas fa-tags"></i> Primary Classification</h4>
-            <div style="background: rgba(102, 126, 234, 0.1); padding: 1rem; border-radius: 8px;">
-                <strong>{{ resnet_predicted_class.title() if resnet_predicted_class else 'N/A' }}</strong> ({{ resnet_confidence }}% confidence)
-            </div>
-        </div>
-        <div style="margin-bottom: 1.5rem;">
-            <h4 style="color: #764ba2; margin-bottom: 0.5rem;"><i class="fas fa-list-ol"></i> Top 3 Predictions</h4>
-            {% if resnet_top_predictions %}
-                {% for prediction in resnet_top_predictions %}
-                <div style="display: flex; justify-content: space-between; padding: 0.5rem 1rem; background: rgba(118, 75, 162, 0.05); margin-bottom: 0.5rem; border-radius: 8px;">
-                    <span>{{ prediction.class.title() }}</span>
-                    <span style="font-weight: bold;">{{ prediction.confidence }}%</span>
-                </div>
-                {% endfor %}
-            {% else %}
-                <p style="color: #666;">No top predictions available.</p>
-            {% endif %}
-        </div>
-        <div>
-            <h4 style="color: #28a745; margin-bottom: 0.5rem;"><i class="fas fa-search"></i> Similar Items Found</h4>
-            <div style="background: rgba(40, 167, 69, 0.1); padding: 1rem; border-radius: 8px;">
-                <strong>{{ resnet_similar_items|length }} similar {{ resnet_predicted_class.title() if resnet_predicted_class else 'items' }}</strong> found
-            </div>
-        </div>
-
-        <div style="margin-top: 2rem;">
-            <h3 style="text-align: center; margin-bottom: 1.5rem; color: #555;">
-                <i class="fas fa-images"></i> Similar Items (ResNet18)
-            </h3>
-            {% if resnet_similar_items %}
-            <div class="results-grid">
-                {% for item in resnet_similar_items %}
-                <div class="result-card">
-                    <img src="{{ item.image_url }}" alt="Similar {{ resnet_predicted_class if resnet_predicted_class else 'item' }}" class="result-image">
-                    <div class="result-info">
-                        <h4 style="margin-bottom: 0.5rem;">{{ item.name or 'Similar Item' }}</h4>
-                        {% if item.description %}<p style="color: #666; font-size: 0.9rem; margin-bottom: 1rem;">{{ item.description }}</p>{% endif %}
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-            {% else %}
-            <div style="text-align: center; padding: 2rem; background: rgba(255, 193, 7, 0.05); border-radius: 10px;">
-                <i class="fas fa-exclamation-circle" style="font-size: 2rem; color: #ffc107; margin-bottom: 0.5rem;"></i>
-                <p style="color: #666;">No similar items found by ResNet18.</p>
-            </div>
-            {% endif %}
-        </div>
+<!-- CLASSIFICATION MODELS SECTION -->
+<div style="margin-bottom: 4rem; padding: 2rem; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 20px; border: 3px solid #667eea; position: relative;">
+    <!-- Section Header -->
+    <div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: #667eea; color: white; padding: 0.5rem 2rem; border-radius: 25px; font-weight: bold; box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);">
+        <i class="fas fa-tags"></i> CLASSIFICATION MODELS
+    </div>
+    
+    <div style="margin-top: 1.5rem; margin-bottom: 1rem; text-align: center;">
+        <p style="color: #6c757d; font-style: italic;">These models predict the clothing category and show random items from the same category</p>
     </div>
 
-    <!-- TripletNet+XGBoost Results Block -->
-    <div style="flex: 1; min-width: 400px; max-width: 600px; background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
-        <h2 style="text-align: center; margin-bottom: 1.5rem; color: #333;">TripletNet+XGBoost Model</h2>
+    <!-- Container for Side-by-Side Classification Results -->
+    <div style="display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center;">
 
-        <div style="margin-bottom: 1.5rem;">
-            <h4 style="color: #667eea; margin-bottom: 0.5rem;"><i class="fas fa-tags"></i> Primary Classification</h4>
-            <div style="background: rgba(102, 126, 234, 0.1); padding: 1rem; border-radius: 8px;">
-                <strong>{{ triplet_predicted_class.title() if triplet_predicted_class else 'N/A' }}</strong> ({{ triplet_confidence }}% confidence)
-            </div>
-        </div>
-        <div style="margin-bottom: 1.5rem;">
-            <h4 style="color: #764ba2; margin-bottom: 0.5rem;"><i class="fas fa-list-ol"></i> Top 3 Predictions</h4>
-            {% if triplet_top_predictions %}
-                {% for prediction in triplet_top_predictions %}
-                <div style="display: flex; justify-content: space-between; padding: 0.5rem 1rem; background: rgba(118, 75, 162, 0.05); margin-bottom: 0.5rem; border-radius: 8px;">
-                    <span>{{ prediction.class.title() }}</span>
-                    <span style="font-weight: bold;">{{ prediction.confidence }}%</span>
+        <!-- ResNet18 Results Block -->
+        <div style="flex: 1; min-width: 400px; max-width: 600px; background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-left: 5px solid #667eea;">
+            <h2 style="text-align: center; margin-bottom: 1.5rem; color: #333; border-bottom: 2px solid #667eea; padding-bottom: 0.5rem;">
+                <i class="fas fa-brain"></i> ResNet18 Model
+            </h2>
+            
+            <div style="margin-bottom: 1.5rem;">
+                <h4 style="color: #667eea; margin-bottom: 0.5rem;"><i class="fas fa-tags"></i> Primary Classification</h4>
+                <div style="background: rgba(102, 126, 234, 0.1); padding: 1rem; border-radius: 8px;">
+                    <strong>{{ resnet_predicted_class.title() if resnet_predicted_class else 'N/A' }}</strong> ({{ resnet_confidence }}% confidence)
                 </div>
-                {% endfor %}
-            {% else %}
-                <p style="color: #666;">No top predictions available.</p>
-            {% endif %}
-        </div>
-        <div>
-            <h4 style="color: #28a745; margin-bottom: 0.5rem;"><i class="fas fa-search"></i> Similar Items Found</h4>
-            <div style="background: rgba(40, 167, 69, 0.1); padding: 1rem; border-radius: 8px;">
-                <strong>{{ triplet_similar_items|length }} similar {{ triplet_predicted_class.title() if triplet_predicted_class else 'items' }}</strong> found
             </div>
-        </div>
-
-        <div style="margin-top: 2rem;">
-            <h3 style="text-align: center; margin-bottom: 1.5rem; color: #555;">
-                <i class="fas fa-images"></i> Similar Items (TripletNet+XGBoost)
-            </h3>
-            {% if triplet_similar_items %}
-            <div class="results-grid">
-                {% for item in triplet_similar_items %}
-                <div class="result-card">
-                    <img src="{{ item.image_url }}" alt="Similar {{ triplet_predicted_class if triplet_predicted_class else 'item' }}" class="result-image">
-                    <div class="result-info">
-                        <h4 style="margin-bottom: 0.5rem;">{{ item.name or 'Similar Item' }}</h4>
-                        {% if item.description %}<p style="color: #666; font-size: 0.9rem; margin-bottom: 1rem;">{{ item.description }}</p>{% endif %}
+            <div style="margin-bottom: 1.5rem;">
+                <h4 style="color: #764ba2; margin-bottom: 0.5rem;"><i class="fas fa-list-ol"></i> Top 3 Predictions</h4>
+                {% if resnet_top_predictions %}
+                    {% for prediction in resnet_top_predictions %}
+                    <div style="display: flex; justify-content: space-between; padding: 0.5rem 1rem; background: rgba(118, 75, 162, 0.05); margin-bottom: 0.5rem; border-radius: 8px;">
+                        <span>{{ prediction.class.title() }}</span>
+                        <span style="font-weight: bold;">{{ prediction.confidence }}%</span>
                     </div>
+                    {% endfor %}
+                {% else %}
+                    <p style="color: #666;">No top predictions available.</p>
+                {% endif %}
+            </div>
+            <div>
+                <h4 style="color: #28a745; margin-bottom: 0.5rem;"><i class="fas fa-search"></i> Similar Items Found</h4>
+                <div style="background: rgba(40, 167, 69, 0.1); padding: 1rem; border-radius: 8px;">
+                    <strong>{{ resnet_similar_items|length }} similar {{ resnet_predicted_class.title() if resnet_predicted_class else 'items' }}</strong> found
                 </div>
-                {% endfor %}
             </div>
-            {% else %}
-            <div style="text-align: center; padding: 2rem; background: rgba(255, 193, 7, 0.05); border-radius: 10px;">
-                <i class="fas fa-exclamation-circle" style="font-size: 2rem; color: #ffc107; margin-bottom: 0.5rem;"></i>
-                <p style="color: #666;">No similar items found by TripletNet+XGBoost.</p>
-            </div>
-            {% endif %}        </div>
-    </div>    <!-- ProtoNet Results Block -->
-    <div style="flex: 1; min-width: 400px; max-width: 600px; background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
-        <h2 style="text-align: center; margin-bottom: 1.5rem; color: #333;">ProtoNet Model (Similarity Search)</h2>
-        
-        <div style="margin-bottom: 1.5rem;">
-            <h4 style="color: #667eea; margin-bottom: 0.5rem;"><i class="fas fa-search-plus"></i> Most Similar Class</h4>
-            <div style="background: rgba(102, 126, 234, 0.1); padding: 1rem; border-radius: 8px;">
-                <strong>{{ proto_predicted_class.title() if proto_predicted_class else 'N/A' }}</strong> ({{ proto_confidence }}% avg similarity)
-            </div>
-        </div>
-        <div style="margin-bottom: 1.5rem;">
-            <h4 style="color: #764ba2; margin-bottom: 0.5rem;"><i class="fas fa-layer-group"></i> Top 3 Classes by Similarity</h4>
-            {% if proto_top_predictions %}
-                {% for prediction in proto_top_predictions %}
-                <div style="display: flex; justify-content: space-between; padding: 0.5rem 1rem; background: rgba(118, 75, 162, 0.05); margin-bottom: 0.5rem; border-radius: 8px;">
-                    <span>{{ prediction.class.title() }}</span>
-                    <span style="font-weight: bold;">{{ prediction.confidence }}% sim</span>
+
+            <div style="margin-top: 2rem;">
+                <h3 style="text-align: center; margin-bottom: 1.5rem; color: #555;">
+                    <i class="fas fa-images"></i> Random Items from Category
+                </h3>
+                {% if resnet_similar_items %}
+                <div class="results-grid">
+                    {% for item in resnet_similar_items %}
+                    <div class="result-card">
+                        <img src="{{ item.image_url }}" alt="Similar {{ resnet_predicted_class if resnet_predicted_class else 'item' }}" class="result-image">
+                        <div class="result-info">
+                            <h4 style="margin-bottom: 0.5rem;">{{ item.name or 'Similar Item' }}</h4>
+                            {% if item.description %}<p style="color: #666; font-size: 0.9rem; margin-bottom: 1rem;">{{ item.description }}</p>{% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
-            {% else %}
-                <p style="color: #666;">No similarity data available.</p>
-            {% endif %}
-        </div>
-        <div>
-            <h4 style="color: #28a745; margin-bottom: 0.5rem;"><i class="fas fa-images"></i> Similar Items Found</h4>
-            <div style="background: rgba(40, 167, 69, 0.1); padding: 1rem; border-radius: 8px;">
-                <strong>{{ proto_similar_items|length }} similar items</strong> found by embedding similarity
+                {% else %}
+                <div style="text-align: center; padding: 2rem; background: rgba(255, 193, 7, 0.05); border-radius: 10px;">
+                    <i class="fas fa-exclamation-circle" style="font-size: 2rem; color: #ffc107; margin-bottom: 0.5rem;"></i>
+                    <p style="color: #666;">No similar items found by ResNet18.</p>
+                </div>
+                {% endif %}
             </div>
         </div>
 
+        <!-- TripletNet+XGBoost Results Block -->
+        <div style="flex: 1; min-width: 400px; max-width: 600px; background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-left: 5px solid #764ba2;">
+            <h2 style="text-align: center; margin-bottom: 1.5rem; color: #333; border-bottom: 2px solid #764ba2; padding-bottom: 0.5rem;">
+                <i class="fas fa-project-diagram"></i> TripletNet+XGBoost
+            </h2>
+
+            <div style="margin-bottom: 1.5rem;">
+                <h4 style="color: #667eea; margin-bottom: 0.5rem;"><i class="fas fa-tags"></i> Primary Classification</h4>
+                <div style="background: rgba(102, 126, 234, 0.1); padding: 1rem; border-radius: 8px;">
+                    <strong>{{ triplet_predicted_class.title() if triplet_predicted_class else 'N/A' }}</strong> ({{ triplet_confidence }}% confidence)
+                </div>
+            </div>
+            <div style="margin-bottom: 1.5rem;">
+                <h4 style="color: #764ba2; margin-bottom: 0.5rem;"><i class="fas fa-list-ol"></i> Top 3 Predictions</h4>
+                {% if triplet_top_predictions %}
+                    {% for prediction in triplet_top_predictions %}
+                    <div style="display: flex; justify-content: space-between; padding: 0.5rem 1rem; background: rgba(118, 75, 162, 0.05); margin-bottom: 0.5rem; border-radius: 8px;">
+                        <span>{{ prediction.class.title() }}</span>
+                        <span style="font-weight: bold;">{{ prediction.confidence }}%</span>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p style="color: #666;">No top predictions available.</p>
+                {% endif %}
+            </div>
+            <div>
+                <h4 style="color: #28a745; margin-bottom: 0.5rem;"><i class="fas fa-search"></i> Similar Items Found</h4>
+                <div style="background: rgba(40, 167, 69, 0.1); padding: 1rem; border-radius: 8px;">
+                    <strong>{{ triplet_similar_items|length }} similar {{ triplet_predicted_class.title() if triplet_predicted_class else 'items' }}</strong> found
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem;">
+                <h3 style="text-align: center; margin-bottom: 1.5rem; color: #555;">
+                    <i class="fas fa-images"></i> Random Items from Category
+                </h3>
+                {% if triplet_similar_items %}
+                <div class="results-grid">
+                    {% for item in triplet_similar_items %}
+                    <div class="result-card">
+                        <img src="{{ item.image_url }}" alt="Similar {{ triplet_predicted_class if triplet_predicted_class else 'item' }}" class="result-image">
+                        <div class="result-info">
+                            <h4 style="margin-bottom: 0.5rem;">{{ item.name or 'Similar Item' }}</h4>
+                            {% if item.description %}<p style="color: #666; font-size: 0.9rem; margin-bottom: 1rem;">{{ item.description }}</p>{% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div style="text-align: center; padding: 2rem; background: rgba(255, 193, 7, 0.05); border-radius: 10px;">
+                    <i class="fas fa-exclamation-circle" style="font-size: 2rem; color: #ffc107; margin-bottom: 0.5rem;"></i>
+                    <p style="color: #666;">No similar items found by TripletNet+XGBoost.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SIMILARITY SEARCH MODEL SECTION -->
+<div style="margin-bottom: 4rem; padding: 2rem; background: linear-gradient(135deg, #f1f8e9 0%, #e8f5e8 100%); border-radius: 20px; border: 3px solid #28a745; position: relative;">
+    <!-- Section Header -->
+    <div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: #28a745; color: white; padding: 0.5rem 2rem; border-radius: 25px; font-weight: bold; box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);">
+        <i class="fas fa-magic"></i> SIMILARITY SEARCH MODEL
+    </div>
+    
+    <div style="margin-top: 1.5rem; margin-bottom: 1rem; text-align: center;">
+        <p style="color: #6c757d; font-style: italic;">This model finds the most visually similar items based on deep learning embeddings</p>
+    </div>
+
+    <!-- ProtoNet Results Block -->
+    <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-left: 5px solid #28a745; max-width: 1200px; margin: 0 auto;">
+        <h2 style="text-align: center; margin-bottom: 1.5rem; color: #333; border-bottom: 2px solid #28a745; padding-bottom: 0.5rem;">
+            <i class="fas fa-search-plus"></i> ProtoNet Similarity Engine
+        </h2>
+        
+        <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; margin-bottom: 2rem;">
+            <div style="flex: 1; min-width: 250px;">
+                <h4 style="color: #28a745; margin-bottom: 0.5rem;"><i class="fas fa-bullseye"></i> Most Similar Class</h4>
+                <div style="background: rgba(40, 167, 69, 0.1); padding: 1rem; border-radius: 8px;">
+                    <strong>{{ proto_predicted_class.title() if proto_predicted_class else 'N/A' }}</strong> ({{ proto_confidence }}% avg similarity)
+                </div>
+            </div>
+            <div style="flex: 1; min-width: 250px;">
+                <h4 style="color: #28a745; margin-bottom: 0.5rem;"><i class="fas fa-images"></i> Similar Items Found</h4>
+                <div style="background: rgba(40, 167, 69, 0.1); padding: 1rem; border-radius: 8px;">
+                    <strong>{{ proto_similar_items|length }} similar items</strong> found by embedding similarity
+                </div>
+            </div>
+        </div>
+        
+        <div style="margin-bottom: 2rem;">
+            <h4 style="color: #dc3545; margin-bottom: 0.5rem; text-align: center;"><i class="fas fa-layer-group"></i> Top 3 Classes by Similarity</h4>
+            {% if proto_top_predictions %}
+            <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;">
+                {% for prediction in proto_top_predictions %}
+                <div style="background: rgba(220, 53, 69, 0.05); padding: 1rem 1.5rem; border-radius: 25px; border: 2px solid rgba(220, 53, 69, 0.2); text-align: center; min-width: 150px;">
+                    <div style="font-weight: bold; margin-bottom: 0.5rem;">{{ prediction.class.title() }}</div>
+                    <div style="color: #dc3545; font-weight: bold; font-size: 1.1rem;">{{ prediction.confidence }}%</div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+                <p style="color: #666; text-align: center;">No similarity data available.</p>
+            {% endif %}
+        </div>
+
         <div style="margin-top: 2rem;">
-            <h3 style="text-align: center; margin-bottom: 1.5rem; color: #555;">
-                <i class="fas fa-magic"></i> Most Similar Items (ProtoNet Embeddings)
+            <h3 style="text-align: center; margin-bottom: 1.5rem; color: #555; background: rgba(40, 167, 69, 0.1); padding: 1rem; border-radius: 10px;">
+                <i class="fas fa-sparkles"></i> Most Similar Items Found by AI Embeddings
             </h3>
             {% if proto_similar_items %}
-            <div class="results-grid">
+            <div class="results-grid" style="background: rgba(40, 167, 69, 0.02); padding: 1.5rem; border-radius: 15px;">
                 {% for item in proto_similar_items %}
-                <div class="result-card" style="position: relative;">
+                <div class="result-card" style="position: relative; border: 2px solid rgba(40, 167, 69, 0.2); background: white;">
+                    <div style="position: absolute; top: 8px; right: 8px; background: #28a745; color: white; padding: 0.2rem 0.5rem; border-radius: 12px; font-size: 0.7rem; font-weight: bold; z-index: 1;">
+                        {{ item.similarity }}%
+                    </div>
                     <img src="{{ item.image_url }}" alt="Similar item" class="result-image">
                     <div class="result-info">
-                        <h4 style="margin-bottom: 0.5rem; font-size: 0.9rem;">{{ item.class.title() }}</h4>
+                        <h4 style="margin-bottom: 0.5rem; font-size: 0.9rem; color: #28a745;">{{ item.class.title() }}</h4>
                         <p style="color: #666; font-size: 0.8rem; margin-bottom: 0.5rem;">{{ item.description }}</p>
-                        <div style="background: rgba(40, 167, 69, 0.1); padding: 0.3rem 0.6rem; border-radius: 4px; font-size: 0.75rem; font-weight: bold; color: #28a745;">
-                            {{ item.similarity }}% similar
+                        <div style="background: linear-gradient(90deg, rgba(40, 167, 69, 0.1) 0%, rgba(40, 167, 69, 0.2) 100%); padding: 0.3rem 0.6rem; border-radius: 4px; font-size: 0.75rem; font-weight: bold; color: #28a745; text-align: center;">
+                            Similarity Score: {{ item.similarity }}%
                         </div>
                     </div>
                 </div>

@@ -94,7 +94,7 @@ def predict_with_protonet(image_path, feature_extractor_path, classifier_data_pa
     
     return predicted_class, round(confidence.item() * 100, 2), top_predictions
 
-def predict_similar_items_with_protonet(image_path, feature_extractor_path, similar_items_dir, device='cpu', top_k=8):
+def predict_similar_items_with_protonet(image_path, feature_extractor_path, similar_items_dir, device='cpu', top_k=3):
     """
     Find similar items using ProtoNet embeddings instead of classification
     

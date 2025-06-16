@@ -60,7 +60,7 @@ def predict_clothing_class(image_path):
         })
     return predicted_class, round(confidence*100, 2), top_predictions
 
-def get_similar_items(clothing_class, num_items=8):
+def get_similar_items(clothing_class, num_items=3):
     """
     Belirtilen giysi sınıfı için benzer ürünleri bulur.
     Fotoğrafları src/static/similar_items/{clothing_class}/ klasöründen alır.
@@ -129,10 +129,9 @@ def predict():
             filename = str(uuid.uuid4()) + '_' + secure_filename(file.filename)
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(filepath)
-            
-            # Get predictions from ResNet18 model
+              # Get predictions from ResNet18 model
             resnet_predicted_class, resnet_confidence, resnet_top_predictions = predict_clothing_class(filepath)
-            resnet_similar_items = get_similar_items(resnet_predicted_class)
+            resnet_similar_items = get_similar_items(resnet_predicted_class, num_items=3)
             
             # Get predictions from TripletNet+XGBoost model
             device = 'cpu' # or 'cuda' if available
@@ -142,14 +141,14 @@ def predict():
                 XGB_MODEL_PATH,
                 device=device
             )
-            triplet_similar_items = get_similar_items(triplet_predicted_class) # Assuming get_similar_items can be reused for now              # Get predictions from ProtoNet model (using similarity search)
+            triplet_similar_items = get_similar_items(triplet_predicted_class, num_items=3) # Assuming get_similar_items can be reused for now              # Get predictions from ProtoNet model (using similarity search)
             try:
                 proto_similar_items, proto_avg_similarity, proto_most_similar_class = predict_similar_items_with_protonet(
                     filepath,
                     PROTONET_FEATURE_EXTRACTOR_PATH,
                     SIMILAR_ITEMS_DIR,
                     device=device,
-                    top_k=8
+                    top_k=3
                 )
                 
                 # For compatibility with the template, create prediction-like data

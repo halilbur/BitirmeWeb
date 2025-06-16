@@ -109,7 +109,7 @@ def load_embedding_database(feature_extractor_path):
         print(f"No cache found at {cache_path}")
         return None
 
-def find_similar_images(query_image_path, feature_extractor_path, similar_items_dir, device='cpu', top_k=8):
+def find_similar_images(query_image_path, feature_extractor_path, similar_items_dir, device='cpu', top_k=3):
     """
     Find similar images using ProtoNet embeddings
     
