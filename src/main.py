@@ -6,7 +6,7 @@ import uuid
 import random  # random modülü eklendi
 from models.resnet18.predict import predict_image
 from models.tripleNetAndXgboost.predict import predict_with_triplenet_xgboost # Added import
-from models.protoNet.predict import predict_with_protonet # Added ProtoNet import
+from models.protoNet.predict import predict_with_protonet, predict_similar_items_with_protonet # Added ProtoNet import
 
 
 # Create Flask application instance
@@ -26,6 +26,7 @@ XGB_MODEL_PATH = os.path.join(BASE_DIR, 'models/tripleNetAndXgboost/xgb_model.js
 # ProtoNet model paths
 PROTONET_FEATURE_EXTRACTOR_PATH = os.path.join(BASE_DIR, 'models/protoNet/protonet_feature_extractor.pth')
 PROTONET_CLASSIFIER_DATA_PATH = os.path.join(BASE_DIR, 'models/protoNet/protonet_classifier_data.pth')
+SIMILAR_ITEMS_DIR = os.path.join(BASE_DIR, '../static/similar_items')
 
 
 # Create upload directory if it doesn't exist
@@ -141,18 +142,55 @@ def predict():
                 XGB_MODEL_PATH,
                 device=device
             )
-            triplet_similar_items = get_similar_items(triplet_predicted_class) # Assuming get_similar_items can be reused for now
-              # Get predictions from ProtoNet model
+            triplet_similar_items = get_similar_items(triplet_predicted_class) # Assuming get_similar_items can be reused for now              # Get predictions from ProtoNet model (using similarity search)
             try:
-                proto_predicted_class, proto_confidence, proto_top_predictions = predict_with_protonet(
+                proto_similar_items, proto_avg_similarity, proto_most_similar_class = predict_similar_items_with_protonet(
                     filepath,
                     PROTONET_FEATURE_EXTRACTOR_PATH,
-                    PROTONET_CLASSIFIER_DATA_PATH,
-                    device=device
+                    SIMILAR_ITEMS_DIR,
+                    device=device,
+                    top_k=8
                 )
-                proto_similar_items = get_similar_items(proto_predicted_class)
+                
+                # For compatibility with the template, create prediction-like data
+                proto_predicted_class = proto_most_similar_class
+                proto_confidence = proto_avg_similarity
+                
+                # Create top predictions based on class distribution of similar items
+                class_counts = {}
+                class_similarities = {}
+                for item in proto_similar_items:
+                    class_name = item['class']
+                    if class_name not in class_counts:
+                        class_counts[class_name] = 0
+                        class_similarities[class_name] = []
+                    class_counts[class_name] += 1
+                    class_similarities[class_name].append(item['similarity'])
+                
+                # Calculate average similarity per class
+                class_avg_similarities = {}
+                for class_name, similarities in class_similarities.items():
+                    class_avg_similarities[class_name] = sum(similarities) / len(similarities)
+                
+                # Sort by average similarity
+                sorted_classes = sorted(class_avg_similarities.items(), key=lambda x: x[1], reverse=True)
+                
+                proto_top_predictions = []
+                for class_name, avg_sim in sorted_classes[:3]:
+                    proto_top_predictions.append({
+                        'class': class_name,
+                        'confidence': round(avg_sim, 2)
+                    })
+                
+                # Ensure we have at least 3 predictions
+                while len(proto_top_predictions) < 3:
+                    proto_top_predictions.append({
+                        'class': 'Unknown',
+                        'confidence': 0.0
+                    })
+                    
             except Exception as e:
-                print(f"ProtoNet prediction error: {e}")
+                print(f"ProtoNet similarity search error: {e}")
                 # Fallback values if ProtoNet fails
                 proto_predicted_class = "Error"
                 proto_confidence = 0.0

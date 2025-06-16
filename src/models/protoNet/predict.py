@@ -3,6 +3,7 @@ import numpy as np
 from torchvision import transforms
 from PIL import Image
 from .model import get_protonet_model, classify_with_prototypes
+from .similarity_search import find_similar_images
 
 # Flask projesindeki sınıf isimleriyle uyumlu olmalı
 CLOTHING_CLASSES = [
@@ -93,6 +94,52 @@ def predict_with_protonet(image_path, feature_extractor_path, classifier_data_pa
     
     return predicted_class, round(confidence.item() * 100, 2), top_predictions
 
+def predict_similar_items_with_protonet(image_path, feature_extractor_path, similar_items_dir, device='cpu', top_k=8):
+    """
+    Find similar items using ProtoNet embeddings instead of classification
+    
+    Args:
+        image_path: Path to the input image
+        feature_extractor_path: Path to the feature extractor model
+        similar_items_dir: Directory containing the similar items database
+        device: Device to run on
+        top_k: Number of similar items to return
+    
+    Returns:
+        similar_items: List of similar items with their information
+        avg_similarity: Average similarity score
+        most_similar_class: The class of the most similar item
+    """
+    try:
+        # Use the similarity search to find similar images
+        similar_items = find_similar_images(
+            image_path, 
+            feature_extractor_path, 
+            similar_items_dir, 
+            device, 
+            top_k
+        )
+        
+        if not similar_items:
+            return [], 0.0, "Unknown"
+        
+        # Calculate average similarity
+        avg_similarity = sum(item['similarity'] for item in similar_items) / len(similar_items)
+        
+        # Get the most common class among similar items
+        class_counts = {}
+        for item in similar_items:
+            class_name = item['class']
+            class_counts[class_name] = class_counts.get(class_name, 0) + 1
+        
+        most_similar_class = max(class_counts, key=class_counts.get) if class_counts else "Unknown"
+        
+        return similar_items, round(avg_similarity, 2), most_similar_class
+        
+    except Exception as e:
+        print(f"Error in similarity-based prediction: {e}")
+        return [], 0.0, "Error"
+
 if __name__ == '__main__':
     # Example usage
     import os
@@ -138,6 +185,20 @@ if __name__ == '__main__':
             print(f"Predicted Class (ProtoNet): {predicted_class}")
             print(f"Confidence: {confidence}%")
             print(f"Top 3 Predictions: {top_preds}")
+            
+            # Similarity-based prediction
+            similar_items, avg_similarity, most_similar_class = predict_similar_items_with_protonet(
+                test_image_path,
+                feature_extractor_path,
+                os.path.join(current_dir, 'similar_items_db'),
+                device
+            )
+            print(f"Most Similar Class: {most_similar_class}")
+            print(f"Average Similarity: {avg_similarity}")
+            print("Similar Items:")
+            for item in similar_items:
+                print(f"- {item['class']} (Similarity: {item['similarity']})")
+                
         except Exception as e:
             print(f"Error during prediction: {e}")
     else:
