@@ -1,8 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div style="text-align: center; margin-bottom: 3rem;">
-    <h1 style="font-size: 3rem; margin-bottom: 1rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+<div style="text-align: center; margin-bottom: 3rem;">    <h1 style="font-size: 3rem; margin-bottom: 1rem; background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
         <i class="fas fa-brain"></i> AI Models
     </h1>
 </div>
@@ -17,7 +16,7 @@
 <!-- Model Overview Cards -->
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; margin-bottom: 4rem;">
     <!-- ResNet18 Model -->
-    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 2.5rem; border-radius: 20px; box-shadow: 0 15px 35px rgba(102, 126, 234, 0.3); position: relative; overflow: hidden;">
+    <div style="background: var(--gradient-primary); color: white; padding: 2.5rem; border-radius: 20px; box-shadow: 0 15px 35px var(--shadow-blue); position: relative; overflow: hidden;">
         <div style="position: absolute; top: -50px; right: -50px; font-size: 6rem; opacity: 0.1;">
             <i class="fas fa-network-wired"></i>
         </div>
@@ -31,18 +30,17 @@
             <div style="background: rgba(255,255,255,0.2); padding: 1rem; border-radius: 10px; margin-bottom: 1rem;">
                 <strong>Accuracy: 91.06%</strong>
             </div>
-            <button onclick="showModelDetails('resnet18')" style="background: white; color: #667eea; border: none; padding: 0.8rem 1.5rem; border-radius: 25px; font-weight: bold; cursor: pointer;">
+            <button onclick="showModelDetails('resnet18')" style="background: white; color: var(--primary-blue); border: none; padding: 0.8rem 1.5rem; border-radius: 25px; font-weight: bold; cursor: pointer;">
                 View Details
             </button>
         </div>
-    </div>
-
-    <!-- Prototype Network Model -->
-    <div style="background: linear-gradient(135deg, #764ba2 0%, #667eea 100%); color: white; padding: 2.5rem; border-radius: 20px; box-shadow: 0 15px 35px rgba(118, 75, 162, 0.3); position: relative; overflow: hidden;">
+    </div>    <!-- Prototype Network Model -->
+    <div style="background: linear-gradient(135deg, var(--primary-purple) 0%, var(--primary-blue) 100%); color: white; padding: 2.5rem; border-radius: 20px; box-shadow: 0 15px 35px var(--shadow-purple); position: relative; overflow: hidden;">
         <div style="position: absolute; top: -50px; right: -50px; font-size: 6rem; opacity: 0.1;">
             <i class="fas fa-project-diagram"></i>
         </div>
-        <div style="position: relative; z-index: 2;">            <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">
+        <div style="position: relative; z-index: 2;">
+            <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">
                 <i class="fas fa-sitemap"></i> Prototype Network
             </h3>
             <p style="margin-bottom: 1.5rem; opacity: 0.9;">
@@ -51,14 +49,14 @@
             <div style="background: rgba(255,255,255,0.2); padding: 1rem; border-radius: 10px; margin-bottom: 1rem;">
                 <strong>Accuracy: 83.26%</strong>
             </div>
-            <button onclick="showModelDetails('protonet')" style="background: white; color: #764ba2; border: none; padding: 0.8rem 1.5rem; border-radius: 25px; font-weight: bold; cursor: pointer;">
+            <button onclick="showModelDetails('protonet')" style="background: white; color: var(--primary-purple); border: none; padding: 0.8rem 1.5rem; border-radius: 25px; font-weight: bold; cursor: pointer;">
                 View Details
             </button>
         </div>
     </div>
 
     <!-- Triplet + XGBoost Model -->
-    <div style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%); color: white; padding: 2.5rem; border-radius: 20px; box-shadow: 0 15px 35px rgba(40, 167, 69, 0.3); position: relative; overflow: hidden;">
+    <div style="background: var(--gradient-success); color: white; padding: 2.5rem; border-radius: 20px; box-shadow: 0 15px 35px var(--shadow-green); position: relative; overflow: hidden;">
         <div style="position: absolute; top: -50px; right: -50px; font-size: 6rem; opacity: 0.1;">
             <i class="fas fa-chart-line"></i>
         </div>
@@ -72,7 +70,7 @@
             <div style="background: rgba(255,255,255,0.2); padding: 1rem; border-radius: 10px; margin-bottom: 1rem;">
                 <strong>Accuracy: 84.1%</strong>
             </div>
-            <button onclick="showModelDetails('triplet')" style="background: white; color: #28a745; border: none; padding: 0.8rem 1.5rem; border-radius: 25px; font-weight: bold; cursor: pointer;">
+            <button onclick="showModelDetails('triplet')" style="background: white; color: var(--primary-green); border: none; padding: 0.8rem 1.5rem; border-radius: 25px; font-weight: bold; cursor: pointer;">
                 View Details
             </button>
         </div>
@@ -82,8 +80,7 @@
 <!-- Detailed Model Information (Hidden by default) -->
 <div id="modelDetails" style="display: none; background: white; padding: 3rem; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); margin-bottom: 3rem;">
     <!-- ResNet18 Details -->
-    <div id="resnet18-details" class="model-detail" style="display: none;">
-        <h2 style="color: #667eea; margin-bottom: 2rem;">
+    <div id="resnet18-details" class="model-detail" style="display: none;">        <h2 style="color: var(--primary-blue); margin-bottom: 2rem;">
             <i class="fas fa-layer-group"></i> ResNet18 Architecture
         </h2>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
@@ -104,18 +101,17 @@
                 </ul>
             </div>
             <div>
-                <h4 style="color: #333; margin-bottom: 1rem;">Key Features</h4>
-                <div style="background: rgba(102, 126, 234, 0.05); padding: 1.5rem; border-radius: 10px;">
+                <h4 style="color: #333; margin-bottom: 1rem;">Key Features</h4>                <div style="background: var(--bg-blue-light); padding: 1.5rem; border-radius: 10px;">
                     <p style="color: #666; margin-bottom: 1rem;">
-                        <i class="fas fa-check" style="color: #28a745;"></i> 
+                        <i class="fas fa-check" style="color: var(--primary-green);"></i> 
                         <strong>Skip Connections:</strong> Prevents vanishing gradient problem
                     </p>
                     <p style="color: #666; margin-bottom: 1rem;">
-                        <i class="fas fa-check" style="color: #28a745;"></i> 
+                        <i class="fas fa-check" style="color: var(--primary-green);"></i> 
                         <strong>Transfer Learning:</strong> Pre-trained on ImageNet
                     </p>
                     <p style="color: #666;">
-                        <i class="fas fa-check" style="color: #28a745;"></i> 
+                        <i class="fas fa-check" style="color: var(--primary-green);"></i> 
                         <strong>Data Augmentation:</strong> Resize, Horizontal Flip, Vertical Flip, Rotation, Color Jitter, Sharpen, ToTensor
                     </p>
                 </div>
@@ -124,8 +120,7 @@
     </div>
 
     <!-- Prototype Network Details -->
-    <div id="protonet-details" class="model-detail" style="display: none;">
-        <h2 style="color: #764ba2; margin-bottom: 2rem;">
+    <div id="protonet-details" class="model-detail" style="display: none;">        <h2 style="color: var(--primary-purple); margin-bottom: 2rem;">
             <i class="fas fa-sitemap"></i> Prototypical Networks
         </h2>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
@@ -141,22 +136,21 @@
                 </ul>
             </div>
             <div>
-                <h4 style="color: #333; margin-bottom: 1rem;">Key Features</h4>
-                <div style="background: rgba(118, 75, 162, 0.05); padding: 1.5rem; border-radius: 10px;">
+                <h4 style="color: #333; margin-bottom: 1rem;">Key Features</h4>                <div style="background: var(--bg-purple-light); padding: 1.5rem; border-radius: 10px;">
                     <p style="color: #666; margin-bottom: 1rem;">
-                        <i class="fas fa-check" style="color: #28a745;"></i> 
+                        <i class="fas fa-check" style="color: var(--primary-green);"></i> 
                         <strong>Few-Shot Learning:</strong> Works with limited examples
                     </p>
                     <p style="color: #666; margin-bottom: 1rem;">
-                        <i class="fas fa-check" style="color: #28a745;"></i> 
+                        <i class="fas fa-check" style="color: var(--primary-green);"></i> 
                         <strong>Prototype Centers:</strong> Learns class representations
                     </p>
                     <p style="color: #666; margin-bottom: 1rem;">
-                        <i class="fas fa-check" style="color: #28a745;"></i> 
+                        <i class="fas fa-check" style="color: var(--primary-green);"></i> 
                         <strong>Episodic Training:</strong> Mimics test conditions
                     </p>
                     <p style="color: #666;">
-                        <i class="fas fa-check" style="color: #28a745;"></i> 
+                        <i class="fas fa-check" style="color: var(--primary-green);"></i> 
                         <strong>Style Similarity:</strong> Captures fine-grained patterns
                     </p>
                 </div>
@@ -165,8 +159,7 @@
     </div>
 
     <!-- Triplet + XGBoost Details -->
-    <div id="triplet-details" class="model-detail" style="display: none;">
-        <h2 style="color: #28a745; margin-bottom: 2rem;">
+    <div id="triplet-details" class="model-detail" style="display: none;">        <h2 style="color: var(--primary-green); margin-bottom: 2rem;">
             <i class="fas fa-code-branch"></i> Triplet Loss + XGBoost
         </h2>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
@@ -182,22 +175,21 @@
                 </ul>
             </div>
             <div>
-                <h4 style="color: #333; margin-bottom: 1rem;">Key Features</h4>
-                <div style="background: rgba(40, 167, 69, 0.05); padding: 1.5rem; border-radius: 10px;">
+                <h4 style="color: #333; margin-bottom: 1rem;">Key Features</h4>                <div style="background: var(--bg-green-light); padding: 1.5rem; border-radius: 10px;">
                     <p style="color: #666; margin-bottom: 1rem;">
-                        <i class="fas fa-check" style="color: #28a745;"></i> 
+                        <i class="fas fa-check" style="color: var(--primary-green);"></i> 
                         <strong>Triplet Loss:</strong> Learns similarity embeddings
                     </p>
                     <p style="color: #666; margin-bottom: 1rem;">
-                        <i class="fas fa-check" style="color: #28a745;"></i> 
+                        <i class="fas fa-check" style="color: var(--primary-green);"></i> 
                         <strong>Hard Mining:</strong> Focuses on difficult examples
                     </p>
                     <p style="color: #666; margin-bottom: 1rem;">
-                        <i class="fas fa-check" style="color: #28a745;"></i> 
+                        <i class="fas fa-check" style="color: var(--primary-green);"></i> 
                         <strong>Gradient Boosting:</strong> Ensemble learning approach
                     </p>
                     <p style="color: #666;">
-                        <i class="fas fa-check" style="color: #28a745;"></i> 
+                        <i class="fas fa-check" style="color: var(--primary-green);"></i> 
                         <strong>Feature Engineering:</strong> Hand-crafted + learned features
                     </p>
                 </div>
@@ -214,10 +206,9 @@
     <p style="text-align: center; color: #666; margin-bottom: 4rem; font-size: 1.1rem;">
         Each model processes the uploaded image independently and provides results based on its unique learning approach.
     </p>
-    
-    <!-- Input Image Section -->
+      <!-- Input Image Section -->
     <div style="text-align: center; margin-bottom: 4rem;">
-        <div style="background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%); color: white; width: 100px; height: 100px; border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 3rem;">
+        <div style="background: linear-gradient(135deg, var(--warning-yellow) 0%, #fd7e14 100%); color: white; width: 100px; height: 100px; border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 3rem;">
             <i class="fas fa-image"></i>
         </div>
         <h3 style="margin-bottom: 0.5rem; color: #333;">User Upload</h3>
@@ -225,20 +216,19 @@
     </div>
     
     <!-- Parallel Processing Arrows -->
-    <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 4rem;">
-        <div style="flex: 1; height: 2px; background: linear-gradient(90deg, #ffc107 0%, #667eea 100%);"></div>
-        <div style="margin: 0 2rem; color: #ffc107; font-size: 1.5rem;">
+    <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 4rem;">        <div style="flex: 1; height: 2px; background: linear-gradient(90deg, var(--warning-yellow) 0%, var(--primary-blue) 100%);"></div>
+        <div style="margin: 0 2rem; color: var(--warning-yellow); font-size: 1.5rem;">
             <i class="fas fa-arrow-down"></i>
         </div>
-        <div style="flex: 1; height: 2px; background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);"></div>
-        <div style="margin: 0 2rem; color: #764ba2; font-size: 1.5rem;">
+        <div style="flex: 1; height: 2px; background: var(--gradient-primary);"></div>
+        <div style="margin: 0 2rem; color: var(--primary-purple); font-size: 1.5rem;">
             <i class="fas fa-arrow-down"></i>
         </div>
-        <div style="flex: 1; height: 2px; background: linear-gradient(90deg, #764ba2 0%, #28a745 100%);"></div>
-        <div style="margin: 0 2rem; color: #28a745; font-size: 1.5rem;">
+        <div style="flex: 1; height: 2px; background: linear-gradient(90deg, var(--primary-purple) 0%, var(--primary-green) 100%);"></div>
+        <div style="margin: 0 2rem; color: var(--primary-green); font-size: 1.5rem;">
             <i class="fas fa-arrow-down"></i>
         </div>
-        <div style="flex: 1; height: 2px; background: linear-gradient(90deg, #28a745 0%, #20c997 100%);"></div>
+        <div style="flex: 1; height: 2px; background: var(--gradient-success);"></div>
     </div>
     
 <!-- Three Independent Pipelines -->
@@ -250,14 +240,13 @@
     overflow-x: auto;
     width: 100%;
     max-width: 100vw;
-">
-    <!-- ResNet18 Pipeline -->
-    <div style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%); padding: 2.5rem; border-radius: 20px; border: 3px solid #667eea; min-width: 320px; box-sizing: border-box;">
+">    <!-- ResNet18 Pipeline -->
+    <div style="background: linear-gradient(135deg, var(--bg-blue-light) 0%, var(--bg-purple-light) 100%); padding: 2.5rem; border-radius: 20px; border: 3px solid var(--primary-blue); min-width: 320px; box-sizing: border-box;">
         <div style="text-align: center; margin-bottom: 2rem;">
-            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 2rem;">
+            <div style="background: var(--gradient-primary); color: white; width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 2rem;">
                 <i class="fas fa-layer-group"></i>
             </div>
-            <h3 style="color: #667eea; margin-bottom: 0.5rem;">ResNet18 Pipeline</h3>
+            <h3 style="color: var(--primary-blue); margin-bottom: 0.5rem;">ResNet18 Pipeline</h3>
             <p style="color: #666; font-size: 0.9rem;">Classification & Feature Extraction</p>
         </div>
         <div style="background: white; padding: 1.5rem; border-radius: 15px; margin-bottom: 1.5rem;">
@@ -265,25 +254,25 @@
                 <i class="fas fa-cog"></i> Processing Steps
             </h4>            <div style="display: flex; flex-direction: column; gap: 1.5rem;">
                 <div style="display: flex; align-items: center; gap: 1.5rem;">
-                    <div style="background: #667eea; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: bold; box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3); flex-shrink: 0;">1</div>
+                    <div style="background: var(--primary-blue); color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: bold; box-shadow: 0 4px 8px var(--shadow-blue); flex-shrink: 0;">1</div>
                     <span style="color: #666; font-size: 1rem; line-height: 1.4;">Image preprocessing (512x512)</span>
                 </div>
                 <div style="display: flex; align-items: center; gap: 1.5rem;">
-                    <div style="background: #667eea; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: bold; box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3); flex-shrink: 0;">2</div>
+                    <div style="background: var(--primary-blue); color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: bold; box-shadow: 0 4px 8px var(--shadow-blue); flex-shrink: 0;">2</div>
                     <span style="color: #666; font-size: 1rem; line-height: 1.4;">18-layer CNN feature extraction</span>
                 </div>
                 <div style="display: flex; align-items: center; gap: 1.5rem;">
-                    <div style="background: #667eea; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: bold; box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3); flex-shrink: 0;">3</div>
+                    <div style="background: var(--primary-blue); color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: bold; box-shadow: 0 4px 8px var(--shadow-blue); flex-shrink: 0;">3</div>
                     <span style="color: #666; font-size: 1rem; line-height: 1.4;">12-class classification</span>
                 </div>
                 <div style="display: flex; align-items: center; gap: 1.5rem;">
-                    <div style="background: #667eea; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: bold; box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3); flex-shrink: 0;">4</div>
+                    <div style="background: var(--primary-blue); color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: bold; box-shadow: 0 4px 8px var(--shadow-blue); flex-shrink: 0;">4</div>
                     <span style="color: #666; font-size: 1rem; line-height: 1.4;">Output the predicted clothing class</span>
                 </div>
             </div>
         </div>
         <div style="background: rgba(102, 126, 234, 0.2); padding: 1rem; border-radius: 10px; text-align: center;">
-            <strong style="color: #667eea;">Output: Category-based Results</strong>
+            <strong style="color: var(--primary-blue);">Output: Category-based Results</strong>
             <p style="color: #666; font-size: 0.8rem; margin: 0.5rem 0 0 0;">91.06% accuracy</p>
         </div>
     </div>

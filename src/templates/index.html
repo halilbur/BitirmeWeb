@@ -1,8 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div style="text-align: center; margin-bottom: 3rem;">
-    <h1 style="font-size: 3rem; margin-bottom: 1rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+<div style="text-align: center; margin-bottom: 3rem;">    <h1 style="font-size: 3rem; margin-bottom: 1rem; background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
         Find Your Perfect Match
     </h1>
     <p style="font-size: 1.2rem; color: #666; max-width: 600px; margin: 0 auto;">
@@ -52,22 +51,16 @@
 <div style="margin-top: 4rem;">
     <h2 style="text-align: center; margin-bottom: 2rem; color: #333;">
         <i class="fas fa-brain"></i> Powered by 3 AI Models
-    </h2>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
-        <div style="text-align: center; padding: 2rem; background: rgba(102, 126, 234, 0.05); border-radius: 15px;">
-            <i class="fas fa-tags" style="font-size: 2rem; color: #667eea; margin-bottom: 1rem;"></i>
-            <h3>Classification Model</h3>
-            <p style="color: #666;">Identifies clothing categories and types</p>
+    </h2>    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem;">
+        <div style="text-align: center; padding: 2rem; background: var(--bg-blue-light); border-radius: 15px; border: 2px solid var(--primary-blue);">
+            <i class="fas fa-tags" style="font-size: 2rem; color: var(--primary-blue); margin-bottom: 1rem;"></i>
+            <h3 style="color: var(--primary-blue);">Classification Models</h3>
+            <p style="color: #666;">ResNet18 & TripletNet+XGBoost for category identification</p>
         </div>
-        <div style="text-align: center; padding: 2rem; background: rgba(118, 75, 162, 0.05); border-radius: 15px;">
-            <i class="fas fa-palette" style="font-size: 2rem; color: #764ba2; margin-bottom: 1rem;"></i>
-            <h3>Style Analysis</h3>
-            <p style="color: #666;">Analyzes patterns, colors, and design</p>
-        </div>
-        <div style="text-align: center; padding: 2rem; background: rgba(102, 126, 234, 0.05); border-radius: 15px;">
-            <i class="fas fa-search-plus" style="font-size: 2rem; color: #667eea; margin-bottom: 1rem;"></i>
-            <h3>Similarity Engine</h3>
-            <p style="color: #666;">Finds the most similar items</p>
+        <div style="text-align: center; padding: 2rem; background: var(--bg-purple-light); border-radius: 15px; border: 2px solid var(--primary-purple);">
+            <i class="fas fa-search-plus" style="font-size: 2rem; color: var(--primary-purple); margin-bottom: 1rem;"></i>
+            <h3 style="color: var(--primary-purple);">Similarity Engine</h3>
+            <p style="color: #666;">ProtoNet finds the most visually similar clothing items</p>
         </div>
     </div>
 </div>

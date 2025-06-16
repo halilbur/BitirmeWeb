@@ -3,10 +3,22 @@ from werkzeug.utils import secure_filename
 from datetime import datetime
 import os
 import uuid
+import sys
 import random  # random modülü eklendi
 from models.resnet18.predict import predict_image
 from models.tripleNetAndXgboost.predict import predict_with_triplenet_xgboost # Added import
 from models.protoNet.predict import predict_with_protonet, predict_similar_items_with_protonet # Added ProtoNet import
+
+# Get the directory of the current file (src/main.py)
+current_dir = os.path.dirname(os.path.abspath(__file__))
+# Get the parent directory (this should be your project root, containing both 'src' and 'models')
+project_root = os.path.dirname(current_dir)
+
+# Add the project root to Python's search path
+sys.path.insert(0, project_root)
+
+# Now, your import should work if 'models' is at the project root
+from models.resnet18.predict import predict_image
 
 
 # Create Flask application instance
